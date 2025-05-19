@@ -168,7 +168,7 @@ export default function Home() {
             {/* Footer */}
             <div className="lg:col-span-12 mt-4 pb-8">
               <div className="text-center text-sm text-[#6B6B6B] opacity-70">
-                <p>AI Manager Hub • Made with ❤️ by Digital Business Lab</p>
+                <p>AI Manager Hub • Made with ❤️ by Team 10 • Digital Business Innovation Lab • 2025 SACE Project</p>
               </div>
             </div>
           </div>

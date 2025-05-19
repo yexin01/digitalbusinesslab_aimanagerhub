@@ -2,10 +2,9 @@
 
 import React from 'react';
 import Sidebar from '@/components/Sidebar';
-import Image from 'next/image';
-import TeamSuggestionCard from '@/components/TeamSuggestionCard';
-import TeamMemberCard from '@/components/TeamMemberCard';
-import MentorPairingCard from '@/components/MentorPairingCard';
+import TeamSuggestionCard from '../../components/TeamSuggestionCard';
+import TeamMemberCard from '../../components/TeamMemberCard';
+import MentorPairingCard from '../../components/MentorPairingCard';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
