@@ -3,23 +3,28 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const SidebarItem = ({ 
   icon, 
+  activeIcon,
   label, 
-  active = false,
   href = "#",
   textColor = "text-[#131313]"
 }: { 
   icon: string, 
+  activeIcon?: string,
   label: string, 
-  active?: boolean,
   href?: string,
   textColor?: string
 }) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+  const iconSrc = isActive && activeIcon ? activeIcon : icon;
+  
   return (
-    <Link href={href} className={`flex items-center gap-3 px-5 py-3 rounded-3xl w-full ${active ? 'bg-[#F3E8FF]' : ''}`}>
-      <Image src={`/images/${icon}`} alt={label} width={24} height={24} />
+    <Link href={href} className={`flex items-center gap-3 px-5 py-3 rounded-3xl w-full ${isActive ? 'bg-[#F3E8FF]' : ''}`}>
+      <Image src={`/images/${iconSrc}`} alt={label} width={24} height={24} />
       <span className={`text-sm ${textColor}`}>{label}</span>
     </Link>
   );
@@ -52,8 +57,13 @@ const Sidebar = () => {
 
       {/* Main Menu */}
       <div className="flex flex-col gap-2 p-2 flex-grow">
-        <SidebarItem icon="dashboard_icon.svg" label="Dashboard" active={true} />
-        <SidebarItem icon="team_orchestrator_icon.svg" label="Team Orchestrator" />
+        <SidebarItem icon="dashboard_icon.svg" label="Dashboard" href="/" />
+        <SidebarItem 
+          icon="team_orchestrator_icon.svg" 
+          activeIcon="team_orchestrator_active_icon.svg"
+          label="Team Orchestrator" 
+          href="/team-orchestrator" 
+        />
         <SidebarItem icon="export_icon.svg" label="Export" />
       </div>
 
