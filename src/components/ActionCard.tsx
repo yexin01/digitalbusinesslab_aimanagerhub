@@ -79,8 +79,8 @@ const ActionCard: React.FC<ActionCardProps> = ({ type, title, description }) => 
       <p className="text-xs text-[#6B6B6B] mb-auto line-clamp-2">{description}</p>
       
       <button className="text-xs font-medium text-[#BF82FF] hover:text-[#9055FF] transition-colors self-end mt-2">
-        Take Action
-      </button>
+          Take Action
+        </button>
     </div>
   );
 };

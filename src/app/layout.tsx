@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import DashboardLayout from "@/components/DashboardLayout";
+import { SearchProvider } from "./context/SearchContext";
+import SearchResults from "@/components/SearchResults";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -28,9 +30,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${robotoMono.variable} antialiased bg-[#F6F6F3]`}
       >
-        <DashboardLayout>
-          {children}
-        </DashboardLayout>
+        <SearchProvider>
+          <DashboardLayout>
+            {children}
+          </DashboardLayout>
+          <SearchResults />
+        </SearchProvider>
       </body>
     </html>
   );

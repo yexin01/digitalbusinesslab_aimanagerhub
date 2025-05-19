@@ -159,12 +159,12 @@ export default function Home() {
               <div className="flex items-center">
                 <div className="w-2 h-10 bg-gradient-to-b from-[#4E97FF] to-[#BF82FF] rounded-full mr-4"></div>
                 <div>
-                  <h1 className="text-3xl font-bold text-[#131313] tracking-tight">Dashboard Overview</h1>
+            <h1 className="text-3xl font-bold text-[#131313] tracking-tight">Dashboard Overview</h1>
                   <p className="text-sm text-[#6B6B6B] mt-1">Monitor team performance and skill development</p>
                 </div>
               </div>
               <div className="text-sm text-[#6B6B6B] bg-[#F6F6F3] px-3 py-1.5 rounded-full">
-                Last updated: <span className="font-medium">Today, 9:41 AM</span>
+              Last updated: <span className="font-medium">Today, 9:41 AM</span>
               </div>
             </div>
           </div>
@@ -175,7 +175,7 @@ export default function Home() {
               <div className="w-1 h-8 bg-[#9055FF] rounded-full mr-3"></div>
               <h2 className="text-xl font-semibold text-[#131313]">Key Metrics</h2>
             </div>
-            
+          
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
               <StatCard 
                 title="Team Engagement" 
@@ -198,8 +198,8 @@ export default function Home() {
                 trend={{ direction: 'none', value: 'No change' }}
               />
             </div>
-          </div>
-          
+            </div>
+            
           {/* Priority Actions - Compact version */}
           <div className="mb-8">
             <div className="flex items-baseline mb-3">
@@ -260,35 +260,35 @@ export default function Home() {
                 <SkillGaps />
               </div>
             </Card>
-          </div>
+            </div>
             
-          {/* Skills Analysis section */}
+            {/* Skills Analysis section */}
           <div className="mb-8">
             <div className="flex items-baseline mb-4">
               <div className="w-1 h-8 bg-[#BF82FF] rounded-full mr-3"></div>
               <h2 className="text-xl font-semibold text-[#131313]">Skills Analysis</h2>
               <p className="text-xs text-[#6B6B6B] ml-2">Comprehensive team skills breakdown and coverage analysis</p>
-            </div>
+              </div>
             
             <Card elevation="md" className="transition-all duration-300 border-l-4 border-[#BF82FF]">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 p-6">
                 <div className="bg-white bg-opacity-50 rounded-xl p-4 border border-[#F0F0F0]">
-                  <SkillsRadarChart title="Team Skills Coverage" />
+                <SkillsRadarChart title="Team Skills Coverage" />
                 </div>
                 <div className="bg-white bg-opacity-50 rounded-xl p-4 border border-[#F0F0F0]">
-                  <SkillsDashboard title="Team Skills Breakdown" skills={teamSkills} />
+                <SkillsDashboard title="Team Skills Breakdown" skills={teamSkills} />
                 </div>
               </div>
             </Card>
-          </div>
+            </div>
             
-          {/* Team Member Metrics section */}
+            {/* Team Member Metrics section */}
           <div className="mb-8">
             <div className="flex items-baseline mb-4">
               <div className="w-1 h-8 bg-[#4E97FF] rounded-full mr-3"></div>
               <h2 className="text-xl font-semibold text-[#131313]">Individual Performance</h2>
               <p className="text-xs text-[#6B6B6B] ml-2">Detailed performance metrics for each team member</p>
-            </div>
+              </div>
             
             <Card elevation="md" className="transition-all duration-300 border-l-4 border-[#4E97FF] p-6">
               <TeamMemberMetrics 
@@ -296,12 +296,12 @@ export default function Home() {
                 members={teamMemberMetrics} 
               />
             </Card>
-          </div>
+            </div>
             
-          {/* Footer */}
+            {/* Footer */}
           <div className="mt-6 pb-6">
-            <div className="text-center text-sm text-[#6B6B6B] opacity-70">
-              <p>AI Manager Hub • Made with ❤️ by Team 10 • Digital Business Innovation Lab • 2025 SACE Project</p>
+              <div className="text-center text-sm text-[#6B6B6B] opacity-70">
+                <p>AI Manager Hub • Made with ❤️ by Team 10 • Digital Business Innovation Lab • 2025 SACE Project</p>
             </div>
           </div>
         </div>

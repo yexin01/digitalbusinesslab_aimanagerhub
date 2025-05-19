@@ -77,7 +77,7 @@ const MentorPairingCard: React.FC<MentorPairingCardProps> = ({
           className="px-3 py-1 rounded-full text-sm font-bold flex items-center justify-center"
           style={{ backgroundColor: bg, color: color }}
         >
-          {fitScore}
+        {fitScore}
         </div>
       </div>
     </div>

@@ -55,20 +55,20 @@ const TeamSuggestionCard: React.FC<TeamSuggestionCardProps> = ({
         <div className="flex flex-wrap justify-between items-center">
           <div className="flex -space-x-2 mb-1">
             {members.slice(0, 5).map(member => (
-              <div 
-                key={member.id} 
+            <div 
+              key={member.id} 
                 className="relative w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-sm"
-              >
+            >
                 <Image src={member.avatar} alt="Team member" fill sizes="28px" />
-              </div>
-            ))}
+            </div>
+          ))}
             {members.length > 5 && (
               <div className="relative w-7 h-7 rounded-full bg-[#F6F6F3] border-2 border-white shadow-sm flex items-center justify-center">
                 <span className="text-xs text-[#6B6B6B] font-medium">+{members.length - 5}</span>
               </div>
             )}
-          </div>
-          
+        </div>
+        
           <Button
             variant="ghost"
             size="sm"

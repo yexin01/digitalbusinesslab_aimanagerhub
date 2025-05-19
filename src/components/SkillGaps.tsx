@@ -74,19 +74,19 @@ const SkillGaps = () => {
             </div>
             
             <div className="h-1.5 w-full bg-[#EDEDED] rounded-full overflow-hidden mb-2">
-              <div 
-                className="h-full bg-[#EB5050] rounded-full" 
-                style={{ width: `${skill.percentage}%` }}
-              ></div>
+                  <div 
+                    className="h-full bg-[#EB5050] rounded-full" 
+                    style={{ width: `${skill.percentage}%` }}
+                  ></div>
             </div>
             
             <div className="flex items-center justify-between mt-auto">
               <span className="text-xs text-[#6B6B6B]">{skill.affectedMembers} members</span>
-              {skill.platform && (
-                <span className={`text-xs px-1.5 py-0.5 rounded-sm ${getPlatformColor(skill.platform)}`}>
-                  {skill.platform}
-                </span>
-              )}
+                {skill.platform && (
+                  <span className={`text-xs px-1.5 py-0.5 rounded-sm ${getPlatformColor(skill.platform)}`}>
+                    {skill.platform}
+                  </span>
+                )}
             </div>
           </div>
         ))}

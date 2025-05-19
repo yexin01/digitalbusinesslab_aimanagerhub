@@ -274,12 +274,12 @@ const TeamOverview = () => {
               </>
             ) : (
               <>
-                View All Team Members
-                <FiChevronDown size={16} />
+          View All Team Members
+          <FiChevronDown size={16} />
               </>
             )}
-          </button>
-        </div>
+        </button>
+      </div>
       )}
     </div>
   );

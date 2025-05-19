@@ -13,9 +13,11 @@ import {
   FiLogOut, 
   FiSearch,
   FiMenu,
-  FiBriefcase 
+  FiBriefcase,
+  FiX
 } from 'react-icons/fi';
 import Badge from './ui/Badge';
+import { useSearch } from '@/app/context/SearchContext';
 
 interface SidebarItemProps {
   icon: React.ReactNode;
@@ -64,6 +66,8 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 };
 
 const Sidebar = () => {
+  const { searchQuery, setSearchQuery, isSearchOpen, toggleSearchOpen, clearSearch } = useSearch();
+
   return (
     <aside className="w-[280px] bg-white shadow-xl h-full flex flex-col">
       {/* Brand */}
@@ -81,13 +85,12 @@ const Sidebar = () => {
 
       {/* Search */}
       <div className="px-5 py-5">
-        <div className="flex items-center gap-2 px-4 py-2.5 bg-[#F6F6F3] rounded-xl transition-all duration-200 hover:bg-[#EDEDED] focus-within:bg-white focus-within:border focus-within:border-[#BF82FF] focus-within:shadow-sm">
+        <div 
+          className="flex items-center gap-2 px-4 py-2.5 bg-[#F6F6F3] rounded-xl transition-all duration-200 hover:bg-[#EDEDED] cursor-pointer"
+          onClick={() => toggleSearchOpen()}
+        >
           <FiSearch size={16} className="text-[#6B6B6B]" />
-          <input 
-            type="text" 
-            placeholder="Search" 
-            className="bg-transparent text-sm text-[#131313] outline-none w-full" 
-          />
+          <div className="text-sm text-[#6B6B6B] w-full">Search</div>
         </div>
       </div>
 
