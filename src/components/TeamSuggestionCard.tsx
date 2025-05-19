@@ -2,6 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 interface TeamMember {
   id: string;
@@ -24,27 +26,42 @@ const TeamSuggestionCard: React.FC<TeamSuggestionCardProps> = ({
   accentColor
 }) => {
   return (
-    <div 
-      className="bg-white p-6 rounded-2xl flex flex-col"
-      style={{ borderLeft: `2px solid ${accentColor}` }}
+    <Card 
+      className="relative"
+      elevation="md"
+      hoverEffect={true}
     >
-      <h3 className="text-xl font-semibold text-[#131313]">{name} ({match} Match)</h3>
-      <p className="text-sm text-[#454545] mb-4">{description}</p>
-      
-      <div className="flex -space-x-2">
-        {members.map(member => (
-          <div key={member.id} className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-white">
-            <Image src={member.avatar} alt="Team member" fill sizes="40px" />
-          </div>
-        ))}
+      <div className="absolute top-0 left-0 bottom-0 w-1.5 rounded-l-2xl" style={{ backgroundColor: accentColor }}></div>
+      <div className="pl-4">
+        <div className="flex items-center gap-2 mb-2">
+          <h3 className="text-xl font-semibold text-[#131313]">{name}</h3>
+          <span className="font-bold text-base" style={{ color: accentColor }}>
+            {match} Match
+          </span>
+        </div>
+        <p className="text-sm text-[#454545] mb-5">{description}</p>
+        
+        <div className="flex -space-x-2 mb-6">
+          {members.map(member => (
+            <div 
+              key={member.id} 
+              className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm"
+            >
+              <Image src={member.avatar} alt="Team member" fill sizes="40px" />
+            </div>
+          ))}
+        </div>
+        
+        <div>
+          <Button
+            variant="primary"
+            size="sm"
+          >
+            View Details
+          </Button>
+        </div>
       </div>
-      
-      <div className="mt-6">
-        <button className="bg-[#BF82FF] text-white py-1 px-4 rounded-lg text-sm font-bold">
-          View Details
-        </button>
-      </div>
-    </div>
+    </Card>
   );
 };
 
