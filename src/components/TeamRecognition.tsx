@@ -2,6 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Card from './ui/Card';
+import Badge from './ui/Badge';
+import { FiArrowRight, FiAward, FiBookOpen, FiBriefcase } from 'react-icons/fi';
 
 interface Recognition {
   id: string;
@@ -40,52 +43,94 @@ const TeamRecognition = () => {
     }
   ];
 
-  const getBadgeClass = (type: string) => {
+  const getTypeInfo = (type: string) => {
     switch(type) {
       case 'LEARNING':
-        return 'bg-gradient-to-r from-[#B38CE3] to-[#F85EBB]';
+        return {
+          label: 'Learning',
+          icon: <FiBookOpen size={14} />,
+          variant: 'primary' as const
+        };
       case 'INNOVATION':
-        return 'bg-gradient-to-r from-[#0B8821] to-[#5CBF6B]';
+        return {
+          label: 'Innovation',
+          icon: <FiBriefcase size={14} />,
+          variant: 'success' as const
+        };
       case 'RECOGNITION':
-        return 'bg-[#FFA500]';
+        return {
+          label: 'Recognition',
+          icon: <FiAward size={14} />,
+          variant: 'warning' as const
+        };
       default:
-        return 'bg-gray-200';
+        return {
+          label: type,
+          icon: null,
+          variant: 'secondary' as const
+        };
     }
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl">
-      <h3 className="text-xl font-semibold text-[#131313] mb-6">Team Recognition</h3>
-      
-      <div className="flex flex-col gap-6">
-        {recognitions.map((recognition, index) => (
-          <div key={recognition.id} className="flex flex-col gap-2">
-            <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-[#131313]">{recognition.name}</span>
-              <div className={`${getBadgeClass(recognition.type)} text-white text-[7px] font-extrabold tracking-widest px-3 py-1 rounded-lg shadow-sm`}>
-                {recognition.type}
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-4">
-              <div className="relative w-10 h-10 rounded-full overflow-hidden">
-                <Image src={recognition.avatar} alt={recognition.name} fill sizes="40px" />
-              </div>
-              <div className="flex flex-col gap-1">
-                <p className="text-xs text-[#131313]">{recognition.achievement}</p>
-                <span className="text-xs font-semibold text-[#131313]">{recognition.timestamp}</span>
-              </div>
-            </div>
-            
-            {index < recognitions.length - 1 && <div className="w-full h-px bg-[#F1F1F1] my-2" />}
-          </div>
-        ))}
-
-        <div className="flex justify-end mt-2">
-          <button className="text-sm font-medium text-[#BF82FF]">View All</button>
-        </div>
+    <Card>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-xl font-semibold text-[#131313]">Team Recognition</h3>
+        <Badge variant="success" size="sm">
+          {recognitions.length} New
+        </Badge>
       </div>
-    </div>
+      
+      <div className="space-y-5">
+        {recognitions.map((recognition) => {
+          const typeInfo = getTypeInfo(recognition.type);
+          
+          return (
+            <div 
+              key={recognition.id} 
+              className="p-4 rounded-xl bg-white border border-[#F0F0F0] hover:shadow-sm transition-all duration-300"
+            >
+              <div className="flex justify-between items-center mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="relative w-10 h-10 rounded-full overflow-hidden shadow-sm">
+                    <Image 
+                      src={recognition.avatar} 
+                      alt={recognition.name} 
+                      fill 
+                      sizes="40px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-[#131313]">{recognition.name}</div>
+                    <div className="text-xs text-[#6B6B6B]">{recognition.timestamp}</div>
+                  </div>
+                </div>
+                
+                <Badge 
+                  variant={typeInfo.variant} 
+                  size="sm"
+                  dot
+                >
+                  {typeInfo.label}
+                </Badge>
+              </div>
+              
+              <div className="text-sm pl-12">
+                {recognition.achievement}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="flex justify-center mt-5">
+        <button className="flex items-center gap-1 text-sm font-medium text-[#BF82FF] hover:text-[#9055FF] transition-colors">
+          View All Recognitions
+          <FiArrowRight size={14} />
+        </button>
+      </div>
+    </Card>
   );
 };
 

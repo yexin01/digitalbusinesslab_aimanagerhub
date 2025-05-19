@@ -2,6 +2,9 @@
 
 import React from 'react';
 import ActionCard from './ActionCard';
+import Card from './ui/Card';
+import Badge from './ui/Badge';
+import { FiArrowRight } from 'react-icons/fi';
 
 interface Action {
   id: string;
@@ -33,8 +36,13 @@ const ActionsSection = () => {
   ];
 
   return (
-    <div className="bg-white p-6 rounded-2xl">
-      <h3 className="text-xl font-semibold text-[#131313] mb-6">Recommended Actions</h3>
+    <Card className="h-full">
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-xl font-semibold text-[#131313]">Recommended Actions</h3>
+        <Badge variant="primary" size="sm" className="font-medium">
+          {actions.length} Actions
+        </Badge>
+      </div>
       
       <div className="grid grid-cols-1 gap-4">
         {actions.map(action => (
@@ -46,7 +54,14 @@ const ActionsSection = () => {
           />
         ))}
       </div>
-    </div>
+      
+      <div className="mt-6 text-center">
+        <button className="text-sm font-medium text-[#BF82FF] flex items-center justify-center mx-auto hover:text-[#9055FF] transition-colors">
+          View All Actions
+          <FiArrowRight className="ml-1" />
+        </button>
+      </div>
+    </Card>
   );
 };
 

@@ -75,78 +75,102 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex h-screen p-6 bg-[#F6F6F3]">
+    <div className="flex h-screen bg-[#F6F6F3]">
       <Sidebar />
       
-      <div className="flex-1 ml-6 overflow-y-auto">
-        <h1 className="text-4xl font-semibold text-black mb-8">Dashboard Overview</h1>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Top row - Stats */}
-          <div className="lg:col-span-3">
-            <StatCard 
-              title="Team Engagement" 
-              value="78%" 
-              trend={{ direction: 'down', value: '6% from last month' }}
-            />
-          </div>
-          <div className="lg:col-span-3">
-            <StatCard 
-              title="Learning Participation" 
-              value="92%" 
-              trend={{ direction: 'up', value: '12% from last month' }}
-            />
-          </div>
-          <div className="lg:col-span-3">
-            <StatCard 
-              title="Goal Completion" 
-              value="85%" 
-              trend={{ direction: 'up', value: '12% from last month' }}
-            />
-          </div>
-          <div className="lg:col-span-3">
-            <StatCard 
-              title="Retention Risk" 
-              value="86%" 
-              trend={{ direction: 'none', value: 'No change' }}
-            />
-          </div>
-          
-          {/* Second row */}
-          <div className="lg:col-span-6">
-            <ActionsSection />
-          </div>
-          <div className="lg:col-span-6">
-            <TeamOverview />
-          </div>
-          
-          {/* Third row */}
-          <div className="lg:col-span-6">
-            <PerformanceChart />
-          </div>
-          <div className="lg:col-span-6">
-            <div className="grid grid-cols-1 gap-6">
-              <SkillGaps />
-              <TeamRecognition />
+      <div className="flex-1 p-8 ml-6 overflow-y-auto">
+        <div className="max-w-7xl mx-auto">
+          <header className="flex items-center justify-between mb-8">
+            <h1 className="text-3xl font-bold text-[#131313] tracking-tight">Dashboard Overview</h1>
+            <div className="text-sm text-[#6B6B6B]">
+              Last updated: <span className="font-medium">Today, 9:41 AM</span>
             </div>
-          </div>
+          </header>
           
-          {/* Skills Analysis section */}
-          <div className="lg:col-span-12">
-            <h2 className="text-2xl font-semibold text-black mb-4">Skills Analysis</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <SkillsRadarChart title="Team Skills Coverage" />
-              <SkillsDashboard title="Team Skills Breakdown" skills={teamSkills} />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Top row - Stats */}
+            <div className="lg:col-span-3">
+              <StatCard 
+                title="Team Engagement" 
+                value="78%" 
+                trend={{ direction: 'down', value: '6% from last month' }}
+              />
             </div>
-          </div>
-          
-          {/* Team Member Metrics section */}
-          <div className="lg:col-span-12">
-            <h2 className="text-2xl font-semibold text-black mb-4">Individual Performance</h2>
-            <TeamMemberMetrics 
-              title="Team Member Performance Metrics" 
-              members={teamMemberMetrics} 
-            />
+            <div className="lg:col-span-3">
+              <StatCard 
+                title="Learning Participation" 
+                value="92%" 
+                trend={{ direction: 'up', value: '12% from last month' }}
+              />
+            </div>
+            <div className="lg:col-span-3">
+              <StatCard 
+                title="Goal Completion" 
+                value="85%" 
+                trend={{ direction: 'up', value: '12% from last month' }}
+              />
+            </div>
+            <div className="lg:col-span-3">
+              <StatCard 
+                title="Retention Risk" 
+                value="86%" 
+                trend={{ direction: 'none', value: 'No change' }}
+              />
+            </div>
+            
+            {/* Second row */}
+            <div className="lg:col-span-6">
+              <ActionsSection />
+            </div>
+            <div className="lg:col-span-6">
+              <TeamOverview />
+            </div>
+            
+            {/* Third row */}
+            <div className="lg:col-span-6">
+              <PerformanceChart />
+            </div>
+            <div className="lg:col-span-6">
+              <div className="grid grid-cols-1 gap-6">
+                <SkillGaps />
+                <TeamRecognition />
+              </div>
+            </div>
+            
+            {/* Skills Analysis section */}
+            <div className="lg:col-span-12">
+              <div className="bg-white bg-opacity-50 backdrop-blur-sm rounded-xl p-4 mb-4">
+                <h2 className="text-xl font-semibold text-[#131313] flex items-center">
+                  <span className="inline-block w-1 h-6 bg-[#BF82FF] rounded-full mr-2"></span>
+                  Skills Analysis
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <SkillsRadarChart title="Team Skills Coverage" />
+                <SkillsDashboard title="Team Skills Breakdown" skills={teamSkills} />
+              </div>
+            </div>
+            
+            {/* Team Member Metrics section */}
+            <div className="lg:col-span-12">
+              <div className="bg-white bg-opacity-50 backdrop-blur-sm rounded-xl p-4 mb-4">
+                <h2 className="text-xl font-semibold text-[#131313] flex items-center">
+                  <span className="inline-block w-1 h-6 bg-[#BF82FF] rounded-full mr-2"></span>
+                  Individual Performance
+                </h2>
+              </div>
+              <TeamMemberMetrics 
+                title="Team Member Performance Metrics" 
+                members={teamMemberMetrics} 
+              />
+            </div>
+            
+            {/* Footer */}
+            <div className="lg:col-span-12 mt-4 pb-8">
+              <div className="text-center text-sm text-[#6B6B6B] opacity-70">
+                <p>AI Manager Hub • Made with ❤️ by Digital Business Lab</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

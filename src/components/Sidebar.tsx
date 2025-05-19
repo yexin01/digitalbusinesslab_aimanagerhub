@@ -4,87 +4,133 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { 
+  FiHome, 
+  FiUsers, 
+  FiDownload, 
+  FiFileText, 
+  FiSettings, 
+  FiLogOut, 
+  FiSearch,
+  FiMenu,
+  FiBriefcase 
+} from 'react-icons/fi';
+import Badge from './ui/Badge';
 
-const SidebarItem = ({ 
+interface SidebarItemProps {
+  icon: React.ReactNode;
+  label: string;
+  href?: string;
+  textColor?: string;
+  isActive?: boolean;
+}
+
+const SidebarItem: React.FC<SidebarItemProps> = ({ 
   icon, 
-  activeIcon,
   label, 
   href = "#",
-  textColor = "text-[#131313]"
-}: { 
-  icon: string, 
-  activeIcon?: string,
-  label: string, 
-  href?: string,
-  textColor?: string
+  textColor = "text-[#131313]",
+  isActive,
 }) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
-  const iconSrc = isActive && activeIcon ? activeIcon : icon;
+  const active = isActive !== undefined ? isActive : pathname === href;
   
   return (
-    <Link href={href} className={`flex items-center gap-3 px-5 py-3 rounded-3xl w-full ${isActive ? 'bg-[#F3E8FF]' : ''}`}>
-      <Image src={`/images/${iconSrc}`} alt={label} width={24} height={24} />
-      <span className={`text-sm ${textColor}`}>{label}</span>
+    <Link 
+      href={href} 
+      className={`
+        flex items-center gap-3 
+        px-5 py-3 
+        rounded-xl 
+        w-full 
+        transition-all
+        duration-200
+        ${active 
+          ? 'bg-[#F4EBFF] text-[#BF82FF]' 
+          : 'hover:bg-[#F6F6F3]'
+        }
+      `}
+    >
+      <div className={active ? 'text-[#BF82FF]' : 'text-[#6B6B6B]'}>
+        {icon}
+      </div>
+      <span className={`text-sm font-medium ${active ? 'text-[#BF82FF]' : textColor}`}>{label}</span>
+      
+      {active && (
+        <div className="ml-auto w-1.5 h-6 bg-[#BF82FF] rounded-full"></div>
+      )}
     </Link>
   );
 };
 
 const Sidebar = () => {
   return (
-    <aside className="w-[280px] bg-white rounded-2xl h-full flex flex-col">
+    <aside className="w-[280px] bg-white shadow-xl h-full flex flex-col">
       {/* Brand */}
-      <div className="flex items-center justify-between p-4">
-        <div className="flex items-center gap-1.5 px-4">
-          <div className="relative w-6 h-6">
-            <Image src="/images/logo.png" alt="AI Manager Hub Logo" fill sizes="24px" className="object-contain" />
-            <div className="absolute inset-0 bg-white rounded-full opacity-60"></div>
+      <div className="flex items-center justify-between p-6 border-b border-[#F0F0F0]">
+        <div className="flex items-center gap-2">
+          <div className="relative w-8 h-8 bg-[#BF82FF] rounded-xl flex items-center justify-center text-white font-bold">
+            AI
           </div>
-          <span className="font-bold text-xl">AI Manager Hub</span>
+          <span className="font-bold text-lg text-[#131313] tracking-tight">AI Manager Hub</span>
         </div>
-        <button className="p-1 bg-[#F6F6F3] rounded-lg">
-          <Image src="/images/settings_icon.svg" alt="Collapse" width={16} height={16} />
+        <button className="p-1.5 hover:bg-[#F6F6F3] rounded-lg transition-colors">
+          <FiMenu size={18} className="text-[#6B6B6B]" />
         </button>
       </div>
 
       {/* Search */}
-      <div className="px-5 pb-3">
-        <div className="flex items-center gap-2 px-4 py-3 border border-[#F1F1F1] rounded-2xl">
-          <Image src="/images/search_icon.svg" alt="Search" width={16} height={16} />
-          <span className="text-sm text-[#7D7D7D]">Search</span>
+      <div className="px-5 py-5">
+        <div className="flex items-center gap-2 px-4 py-2.5 bg-[#F6F6F3] rounded-xl transition-all duration-200 hover:bg-[#EDEDED] focus-within:bg-white focus-within:border focus-within:border-[#BF82FF] focus-within:shadow-sm">
+          <FiSearch size={16} className="text-[#6B6B6B]" />
+          <input 
+            type="text" 
+            placeholder="Search" 
+            className="bg-transparent text-sm text-[#131313] outline-none w-full" 
+          />
         </div>
       </div>
 
       {/* Main Menu */}
-      <div className="flex flex-col gap-2 p-2 flex-grow">
-        <SidebarItem icon="dashboard_icon.svg" label="Dashboard" href="/" />
-        <SidebarItem 
-          icon="team_orchestrator_icon.svg" 
-          activeIcon="team_orchestrator_active_icon.svg"
-          label="Team Orchestrator" 
-          href="/team-orchestrator" 
-        />
-        <SidebarItem icon="export_icon.svg" label="Export" />
+      <div className="px-3 py-2">
+        <div className="text-xs font-medium text-[#6B6B6B] uppercase tracking-wider px-4 mb-2">
+          Main Menu
+        </div>
+        <div className="flex flex-col gap-1">
+          <SidebarItem icon={<FiHome size={18} />} label="Dashboard" href="/" />
+          <SidebarItem 
+            icon={<FiUsers size={18} />}
+            label="Team Orchestrator" 
+            href="/team-orchestrator" 
+          />
+          <SidebarItem icon={<FiBriefcase size={18} />} label="Projects" />
+          <SidebarItem icon={<FiDownload size={18} />} label="Export" />
+        </div>
+      </div>
+
+      <div className="mt-6 px-3 py-2">
+        <div className="text-xs font-medium text-[#6B6B6B] uppercase tracking-wider px-4 mb-2">
+          Management
+        </div>
+        <div className="flex flex-col gap-1">
+          <SidebarItem icon={<FiFileText size={18} />} label="Reports" />
+          <SidebarItem icon={<FiSettings size={18} />} label="Settings" />
+        </div>
       </div>
 
       {/* User */}
-      <div className="flex flex-col gap-3 p-4 mt-auto">
-        <div className="flex items-center gap-3 px-5">
-          <div className="relative w-10 h-10 rounded-full overflow-hidden">
-            <Image src="/images/gustavo_avatar.png" alt="User avatar" fill sizes="40px" />
+      <div className="mt-auto p-5 border-t border-[#F0F0F0]">
+        <div className="flex items-center gap-3 p-3 bg-[#F6F6F3] rounded-xl">
+          <div className="relative w-10 h-10 rounded-full overflow-hidden shadow-sm">
+            <Image src="/images/gustavo_avatar.png" alt="User avatar" fill sizes="40px" className="object-cover" />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium">Gustavo Xavier</span>
-            <div className="px-1.5 py-0.5 bg-[#F3E8FF] rounded-3xl">
-              <span className="text-xs font-semibold">Admin</span>
-            </div>
+            <span className="text-sm font-semibold text-[#131313]">Gustavo Xavier</span>
+            <Badge variant="primary" size="sm" className="mt-0.5">Admin</Badge>
           </div>
-        </div>
-        
-        <div className="flex flex-col gap-0.5">
-          <SidebarItem icon="reports_icon.svg" label="Reports" />
-          <SidebarItem icon="settings_icon.svg" label="Settings" />
-          <SidebarItem icon="logout_icon.svg" label="Log out" textColor="text-[#B01212]" />
+          <button className="ml-auto p-1.5 bg-white rounded-lg hover:bg-[#F4EBFF] transition-colors">
+            <FiLogOut size={16} className="text-[#BF82FF]" />
+          </button>
         </div>
       </div>
     </aside>
