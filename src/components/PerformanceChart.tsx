@@ -13,7 +13,6 @@ import {
   Legend 
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import Card from './ui/Card';
 import Badge from './ui/Badge';
 
 ChartJS.register(
@@ -30,15 +29,47 @@ ChartJS.register(
 const PerformanceChart = () => {
   const [timeframe, setTimeframe] = useState<'month' | 'quarter' | 'year'>('month');
 
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
+  // Dati per i diversi periodi
+  const monthData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+    goalsCompleted: [12, 15, 18, 14, 22, 25, 20, 23],
+    teamAverage: [10, 12, 14, 13, 16, 18, 17, 19],
+    period: 'Jan 2023 - Aug 2023'
+  };
+  
+  const quarterData = {
+    labels: ['Q1 2022', 'Q2 2022', 'Q3 2022', 'Q4 2022', 'Q1 2023', 'Q2 2023'],
+    goalsCompleted: [35, 42, 38, 45, 55, 61],
+    teamAverage: [32, 36, 35, 40, 48, 52],
+    period: 'Q1 2022 - Q2 2023'
+  };
+  
+  const yearData = {
+    labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
+    goalsCompleted: [120, 145, 132, 158, 175, 190],
+    teamAverage: [110, 125, 122, 140, 155, 170],
+    period: '2018 - 2023'
+  };
+  
+  // Seleziona i dati in base al periodo
+  const currentData = (() => {
+    switch(timeframe) {
+      case 'quarter':
+        return quarterData;
+      case 'year':
+        return yearData;
+      default:
+        return monthData;
+    }
+  })();
   
   const data = {
-    labels: months,
+    labels: currentData.labels,
     datasets: [
       {
         fill: true,
         label: 'Goals Completed',
-        data: [12, 15, 18, 14, 22, 25, 20, 23],
+        data: currentData.goalsCompleted,
         borderColor: '#BF82FF',
         backgroundColor: 'rgba(191, 130, 255, 0.1)',
         borderWidth: 2,
@@ -52,7 +83,7 @@ const PerformanceChart = () => {
       {
         fill: false,
         label: 'Team Average',
-        data: [10, 12, 14, 13, 16, 18, 17, 19],
+        data: currentData.teamAverage,
         borderColor: '#25CD25',
         borderWidth: 2,
         borderDash: [5, 5],
@@ -60,6 +91,18 @@ const PerformanceChart = () => {
         pointRadius: 0,
       },
     ],
+  };
+
+  // Adatta le opzioni in base al periodo
+  const getYAxisMax = () => {
+    switch(timeframe) {
+      case 'quarter':
+        return 70;
+      case 'year':
+        return 200;
+      default:
+        return 30;
+    }
   };
 
   const options = {
@@ -104,9 +147,9 @@ const PerformanceChart = () => {
     scales: {
       y: {
         min: 0,
-        max: 30,
+        max: getYAxisMax(),
         ticks: {
-          stepSize: 10,
+          stepSize: timeframe === 'year' ? 50 : timeframe === 'quarter' ? 20 : 10,
           padding: 10,
           font: {
             size: 11,
@@ -142,15 +185,8 @@ const PerformanceChart = () => {
   };
 
   return (
-    <Card className="h-full">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold text-[#131313]">Performance Trends</h3>
-        <Badge variant="primary" className="font-medium">
-          {timeframe === 'month' ? 'Monthly' : timeframe === 'quarter' ? 'Quarterly' : 'Yearly'}
-        </Badge>
-      </div>
-      
-      <div className="flex gap-4 mb-6 border-b border-[#F0F0F0] pb-2">
+    <div className="h-full">
+      <div className="flex gap-4 mb-4 border-b border-[#F0F0F0] pb-2">
         <button 
           className={`text-sm font-medium py-2 transition-colors ${
             timeframe === 'month' 
@@ -183,15 +219,15 @@ const PerformanceChart = () => {
         </button>
       </div>
 
-      <div className="h-[250px] mt-4">
+      <div className="h-[220px] mt-2">
         <Line options={options} data={data} />
       </div>
       
-      <div className="flex justify-between mt-4 text-xs text-[#6B6B6B]">
-        <div>Jan 2023</div>
-        <div>Aug 2023</div>
+      <div className="flex justify-between mt-3 text-xs text-[#6B6B6B]">
+        <div>{currentData.period.split(' - ')[0]}</div>
+        <div>{currentData.period.split(' - ')[1]}</div>
       </div>
-    </Card>
+    </div>
   );
 };
 

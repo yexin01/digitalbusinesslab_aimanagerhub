@@ -1,9 +1,8 @@
 "use client";
 
 import React from 'react';
-import Card from './ui/Card';
 import Badge from './ui/Badge';
-import { FiArrowRight, FiBookOpen } from 'react-icons/fi';
+import { FiArrowRight } from 'react-icons/fi';
 
 interface SkillGap {
   id: string;
@@ -11,6 +10,7 @@ interface SkillGap {
   percentage: number;
   recommendation: string;
   platform?: 'LinkedIn' | 'Udemy' | 'Coursera';
+  affectedMembers?: number;
 }
 
 const SkillGaps = () => {
@@ -20,21 +20,24 @@ const SkillGaps = () => {
       name: 'Data Analysis',
       percentage: 67,
       recommendation: 'Storytelling with Data',
-      platform: 'LinkedIn'
+      platform: 'LinkedIn',
+      affectedMembers: 5
     },
     {
       id: '2',
       name: 'Project Management',
       percentage: 53,
       recommendation: 'Agile Project Management',
-      platform: 'Udemy'
+      platform: 'Udemy',
+      affectedMembers: 4
     },
     {
       id: '3',
       name: 'Generative AI Tools',
       percentage: 50,
       recommendation: 'Prompting with ChatGPT',
-      platform: 'Coursera'
+      platform: 'Coursera',
+      affectedMembers: 7
     }
   ];
 
@@ -52,46 +55,38 @@ const SkillGaps = () => {
   };
 
   return (
-    <Card>
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold text-[#131313]">Skill Gaps</h3>
-        <Badge variant="error" size="sm" dot>
+    <div>
+      <div className="flex justify-between items-center mb-2">
+        <Badge variant="error" size="sm" dot className="text-xs py-0.5">
           Needs Attention
         </Badge>
       </div>
       
-      <div className="space-y-5">
+      <div className="grid grid-cols-3 gap-3">
         {skillGaps.map((skill) => (
           <div 
             key={skill.id} 
-            className="p-4 rounded-xl bg-[#F6F6F3] hover:shadow-sm transition-all duration-300"
+            className="p-3 rounded-lg bg-[#F6F6F3] hover:shadow-sm transition-all duration-300 flex flex-col h-full"
           >
-            <div className="flex justify-between items-start mb-3">
-              <div className="w-full pr-4">
-                <span className="text-sm font-semibold text-[#131313]">{skill.name}</span>
-                <div className="h-1.5 w-full mt-2 bg-[#EDEDED] rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-[#EB5050] rounded-full" 
-                    style={{ width: `${skill.percentage}%` }}
-                  ></div>
-                </div>
-              </div>
-              <span className="text-base font-bold text-[#131313]">{skill.percentage}%</span>
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm font-semibold text-[#131313] line-clamp-1">{skill.name}</span>
+              <span className="text-sm font-bold text-[#131313] ml-1">{skill.percentage}%</span>
             </div>
             
-            <div className="flex items-center justify-between mt-3">
-              <div className="flex items-center gap-2">
-                <FiBookOpen size={14} className="text-[#6B6B6B]" />
-                <span className="text-xs text-[#6B6B6B]">Recommended course:</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-medium">{skill.recommendation}</span>
-                {skill.platform && (
-                  <span className={`text-xs px-1.5 py-0.5 rounded-sm ${getPlatformColor(skill.platform)}`}>
-                    {skill.platform}
-                  </span>
-                )}
-              </div>
+            <div className="h-1.5 w-full bg-[#EDEDED] rounded-full overflow-hidden mb-2">
+              <div 
+                className="h-full bg-[#EB5050] rounded-full" 
+                style={{ width: `${skill.percentage}%` }}
+              ></div>
+            </div>
+            
+            <div className="flex items-center justify-between mt-auto">
+              <span className="text-xs text-[#6B6B6B]">{skill.affectedMembers} members</span>
+              {skill.platform && (
+                <span className={`text-xs px-1.5 py-0.5 rounded-sm ${getPlatformColor(skill.platform)}`}>
+                  {skill.platform}
+                </span>
+              )}
             </div>
           </div>
         ))}
@@ -103,7 +98,7 @@ const SkillGaps = () => {
           <FiArrowRight size={14} />
         </button>
       </div>
-    </Card>
+    </div>
   );
 };
 

@@ -1,9 +1,10 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import Image from 'next/image';
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -31,6 +32,15 @@ const TeamMemberMetrics: React.FC<TeamMemberMetricsProps> = ({
   members,
   className = '',
 }) => {
+  const [showAllMembers, setShowAllMembers] = useState(false);
+  const initialMembersToShow = 4;
+  
+  const visibleMembers = showAllMembers ? members : members.slice(0, initialMembersToShow);
+  
+  const toggleShowAllMembers = () => {
+    setShowAllMembers(!showAllMembers);
+  };
+
   const getSparklineOptions = () => {
     return {
       responsive: true,
@@ -127,7 +137,7 @@ const TeamMemberMetrics: React.FC<TeamMemberMetricsProps> = ({
             </tr>
           </thead>
           <tbody>
-            {members.map((member) => (
+            {visibleMembers.map((member) => (
               <tr key={member.id} className="border-b border-[#F0F0F0]">
                 <td className="py-4">
                   <div className="flex items-center">
@@ -167,6 +177,27 @@ const TeamMemberMetrics: React.FC<TeamMemberMetricsProps> = ({
           </tbody>
         </table>
       </div>
+      
+      {members.length > initialMembersToShow && (
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={toggleShowAllMembers}
+            className="flex items-center gap-1 text-sm font-medium text-[#BF82FF] hover:text-[#9055FF] transition-colors"
+          >
+            {showAllMembers ? (
+              <>
+                Show Less
+                <FiChevronUp size={16} />
+              </>
+            ) : (
+              <>
+                View All Team Members
+                <FiChevronDown size={16} />
+              </>
+            )}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Card from './ui/Card';
 import Badge from './ui/Badge';
 import { FiArrowRight, FiAward, FiBookOpen, FiBriefcase } from 'react-icons/fi';
 
@@ -73,9 +72,8 @@ const TeamRecognition = () => {
   };
 
   return (
-    <Card>
+    <div>
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold text-[#131313]">Team Recognition</h3>
         <Badge variant="success" size="sm">
           {recognitions.length} New
         </Badge>
@@ -130,7 +128,7 @@ const TeamRecognition = () => {
           <FiArrowRight size={14} />
         </button>
       </div>
-    </Card>
+    </div>
   );
 };
 

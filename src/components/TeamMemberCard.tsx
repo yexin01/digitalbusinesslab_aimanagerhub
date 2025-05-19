@@ -20,14 +20,14 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       elevation="sm"
       hoverEffect={true}
       className="transition-all duration-300 flex flex-col items-center"
-      padding="md"
+      padding="sm"
     >
-      <div className="relative w-16 h-16 rounded-full overflow-hidden mb-4 border-2 border-[#F4EBFF] shadow-sm">
-        <Image src={avatar} alt={name} fill sizes="64px" />
+      <div className="relative w-14 h-14 rounded-full overflow-hidden mb-3 border-2 border-[#F4EBFF] shadow-sm">
+        <Image src={avatar} alt={name} fill sizes="56px" />
       </div>
       
-      <h3 className="text-base font-semibold text-[#131313] mb-1">{name}</h3>
-      <p className="text-sm text-[#454545]">{role}</p>
+      <h3 className="text-sm font-semibold text-[#131313] mb-1 text-center">{name}</h3>
+      <p className="text-xs text-[#454545] text-center">{role}</p>
     </Card>
   );
 };

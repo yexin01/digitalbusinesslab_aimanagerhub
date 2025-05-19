@@ -2,9 +2,6 @@
 
 import React from 'react';
 import ActionCard from './ActionCard';
-import Card from './ui/Card';
-import Badge from './ui/Badge';
-import { FiArrowRight } from 'react-icons/fi';
 
 interface Action {
   id: string;
@@ -18,33 +15,38 @@ const ActionsSection = () => {
     {
       id: '1',
       type: 'HIGH_PRIORITY',
-      title: 'Schedule 1:1 with Sarah Chen',
+      title: 'Schedule 1:1 with Daniel Wilson',
       description: 'Engagement score dropped 15% in the last 30 days. AI suggests discussing workload and career growth.'
     },
     {
       id: '2',
       type: 'SKILL_GAP',
       title: 'Data Visualization Skills Need',
-      description: '3 team members would benefit from advanced data visualization training.'
+      description: '7 team members would benefit from advanced data visualization training.'
     },
     {
       id: '3',
       type: 'RECOGNITION',
       title: 'Celebrate Team Achievement',
-      description: 'Project Athena was completed ahead of schedule with excellent results.'
+      description: 'Project Athena was completed ahead of schedule with excellent results by the entire team.'
     }
   ];
 
   return (
-    <Card className="h-full">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold text-[#131313]">Recommended Actions</h3>
-        <Badge variant="primary" size="sm" className="font-medium">
-          {actions.length} Actions
-        </Badge>
+    <div className="h-full flex flex-col">
+      <div className="flex items-baseline justify-between mb-3">
+        <div className="flex items-center gap-3">
+          <div className="bg-[#F4EBFF] text-[#BF82FF] px-2 py-0.5 rounded-full text-xs font-medium">
+            {actions.length} Actions
+          </div>
+          <span className="text-xs text-[#6B6B6B]">Today</span>
+        </div>
       </div>
       
-      <div className="grid grid-cols-1 gap-4">
+      <div className="w-full h-px bg-[#E5E5E5] mb-3"></div>
+      
+      {/* Horizontal row of action cards */}
+      <div className="grid grid-cols-3 gap-3">
         {actions.map(action => (
           <ActionCard 
             key={action.id}
@@ -54,14 +56,7 @@ const ActionsSection = () => {
           />
         ))}
       </div>
-      
-      <div className="mt-6 text-center">
-        <button className="text-sm font-medium text-[#BF82FF] flex items-center justify-center mx-auto hover:text-[#9055FF] transition-colors">
-          View All Actions
-          <FiArrowRight className="ml-1" />
-        </button>
-      </div>
-    </Card>
+    </div>
   );
 };
 
