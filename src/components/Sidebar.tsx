@@ -106,7 +106,11 @@ const Sidebar = () => {
             label="Team Orchestrator" 
             href="/team-orchestrator" 
           />
-          <SidebarItem icon={<FiBriefcase size={18} />} label="Projects" />
+          <SidebarItem 
+            icon={<FiBriefcase size={18} />} 
+            label="Projects" 
+            href="/projects" 
+          />
           <SidebarItem icon={<FiDownload size={18} />} label="Export" />
         </div>
       </div>
