@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Sidebar from '@/components/Sidebar';
+import PageHeader from '@/components/PageHeader';
 import TeamSuggestionCard from '../../components/TeamSuggestionCard';
 import TeamMemberCard from '../../components/TeamMemberCard';
 import MentorPairingCard from '../../components/MentorPairingCard';
@@ -33,6 +34,7 @@ export default function TeamOrchestratorPage() {
   const [selectedSkills, setSelectedSkills] = useState<Set<string>>(new Set());
   const [showOptimalTeam, setShowOptimalTeam] = useState(false);
   const [showAllTeamMembers, setShowAllTeamMembers] = useState(false);
+  const [showAllPairings, setShowAllPairings] = useState(false);
   const [optimalTeam, setOptimalTeam] = useState<{
     teamName: string;
     overallMatch: string;
@@ -109,10 +111,14 @@ export default function TeamOrchestratorPage() {
       role: 'Senior Developer', 
       avatar: '/images/chris_avatar.png',
       skills: {
+        'JavaScript': 95,
+        'React': 90,
+        'Node.js': 88,
+        'Python': 85,
         'Machine Learning': 85,
-        'API Integration': 95,
-        'Front-End Development': 90,
-        'Data Visualization': 75,
+        'Data Analysis': 80,
+        'DevOps': 75,
+        'Cloud Architecture': 82,
         'Project Management': 80
       }
     },
@@ -122,9 +128,12 @@ export default function TeamOrchestratorPage() {
       role: 'UX Designer', 
       avatar: '/images/maggie_avatar.png',
       skills: {
-        'UI/UX Design': 98,
-        'Front-End Development': 70,
-        'Data Visualization': 85,
+        'UX Design': 98,
+        'UI Design': 95,
+        'React': 70,
+        'JavaScript': 65,
+        'Data Analysis': 60,
+        'Product Management': 75,
         'Project Management': 75
       }
     },
@@ -134,9 +143,13 @@ export default function TeamOrchestratorPage() {
       role: 'Software Engineer', 
       avatar: '/images/gael_avatar.png',
       skills: {
-        'API Integration': 90,
-        'Front-End Development': 80,
+        'JavaScript': 90,
+        'React': 85,
+        'Node.js': 80,
+        'Python': 75,
         'Machine Learning': 60,
+        'DevOps': 70,
+        'Data Analysis': 55,
         'Project Management': 50
       }
     },
@@ -146,9 +159,13 @@ export default function TeamOrchestratorPage() {
       role: 'QA Engineer', 
       avatar: '/images/jenna_avatar.png',
       skills: {
-        'API Integration': 75,
+        'JavaScript': 75,
+        'React': 70,
+        'Node.js': 65,
+        'Python': 60,
+        'Data Analysis': 85,
         'Project Management': 80,
-        'Data Visualization': 60
+        'DevOps': 75
       }
     },
     { 
@@ -157,8 +174,12 @@ export default function TeamOrchestratorPage() {
       role: 'Data Scientist', 
       avatar: '/images/new_avatars/ryan_avatar.png',
       skills: {
+        'Python': 95,
         'Machine Learning': 95,
-        'Data Visualization': 90,
+        'Data Analysis': 98,
+        'JavaScript': 70,
+        'React': 65,
+        'Cloud Architecture': 80,
         'Project Management': 70
       }
     },
@@ -168,9 +189,13 @@ export default function TeamOrchestratorPage() {
       role: 'Product Manager', 
       avatar: '/images/new_avatars/sophia_avatar.png',
       skills: {
+        'Product Management': 95,
         'Project Management': 95,
-        'UI/UX Design': 75,
-        'API Integration': 65
+        'UX Design': 75,
+        'UI Design': 70,
+        'Data Analysis': 80,
+        'JavaScript': 50,
+        'React': 45
       }
     },
     { 
@@ -179,9 +204,13 @@ export default function TeamOrchestratorPage() {
       role: 'Frontend Developer', 
       avatar: '/images/new_avatars/alex_avatar.png',
       skills: {
-        'Front-End Development': 92,
-        'UI/UX Design': 85,
-        'Data Visualization': 80
+        'React': 92,
+        'JavaScript': 95,
+        'UI Design': 85,
+        'UX Design': 75,
+        'Node.js': 70,
+        'Python': 45,
+        'Data Analysis': 60
       }
     },
     { 
@@ -190,8 +219,13 @@ export default function TeamOrchestratorPage() {
       role: 'Backend Developer', 
       avatar: '/images/new_avatars/laura_avatar.png',
       skills: {
-        'API Integration': 95,
+        'Node.js': 95,
+        'Python': 90,
+        'JavaScript': 85,
         'Machine Learning': 70,
+        'Cloud Architecture': 88,
+        'DevOps': 85,
+        'Data Analysis': 75,
         'Project Management': 65
       }
     },
@@ -201,8 +235,13 @@ export default function TeamOrchestratorPage() {
       role: 'DevOps Engineer', 
       avatar: '/images/new_avatars/daniel_avatar.png',
       skills: {
-        'API Integration': 90,
+        'DevOps': 95,
+        'Cloud Architecture': 90,
+        'Python': 80,
+        'Node.js': 75,
+        'JavaScript': 70,
         'Machine Learning': 60,
+        'Data Analysis': 65,
         'Project Management': 75
       }
     },
@@ -212,9 +251,13 @@ export default function TeamOrchestratorPage() {
       role: 'UI Designer', 
       avatar: '/images/new_avatars/anna_avatar.png',
       skills: {
-        'UI/UX Design': 95,
-        'Front-End Development': 75,
-        'Data Visualization': 85
+        'UI Design': 95,
+        'UX Design': 88,
+        'React': 75,
+        'JavaScript': 70,
+        'Product Management': 60,
+        'Data Analysis': 55,
+        'Project Management': 50
       }
     }
   ];
@@ -224,19 +267,19 @@ export default function TeamOrchestratorPage() {
     {
       mentor: { name: 'Chris Friedkly', role: 'Senior Developer', avatar: '/images/chris_avatar.png', score: '86%' },
       mentee: { name: 'Gael Harry', role: 'Software Engineer', avatar: '/images/gael_avatar.png' },
-      skill: 'Data Visualization',
+      skill: 'Machine Learning',
       fitScore: '95%'
     },
     {
       mentor: { name: 'Maggie Johnson', role: 'UX Designer', avatar: '/images/maggie_avatar.png', score: '88%' },
       mentee: { name: 'Anna Petrov', role: 'UI Designer', avatar: '/images/new_avatars/anna_avatar.png' },
-      skill: 'User Experience Design',
+      skill: 'UX Design',
       fitScore: '92%'
     },
     {
       mentor: { name: 'Marco Rossi', role: 'Data Scientist', avatar: '/images/new_avatars/ryan_avatar.png', score: '84%' },
       mentee: { name: 'Alex Martinez', role: 'Frontend Developer', avatar: '/images/new_avatars/alex_avatar.png' },
-      skill: 'Data Visualization',
+      skill: 'Data Analysis',
       fitScore: '88%'
     },
     {
@@ -244,10 +287,23 @@ export default function TeamOrchestratorPage() {
       mentee: { name: 'Sophia Kim', role: 'Backend Developer', avatar: '/images/new_avatars/laura_avatar.png' },
       skill: 'Project Management',
       fitScore: '85%'
+    },
+    {
+      mentor: { name: 'Daniel Wilson', role: 'DevOps Engineer', avatar: '/images/new_avatars/daniel_avatar.png', score: '82%' },
+      mentee: { name: 'Jenna Sullivan', role: 'QA Engineer', avatar: '/images/jenna_avatar.png' },
+      skill: 'DevOps',
+      fitScore: '78%'
+    },
+    {
+      mentor: { name: 'Sophia Kim', role: 'Backend Developer', avatar: '/images/new_avatars/laura_avatar.png', score: '87%' },
+      mentee: { name: 'Gael Harry', role: 'Software Engineer', avatar: '/images/gael_avatar.png' },
+      skill: 'Node.js',
+      fitScore: '83%'
     }
   ];
 
   const visibleTeamMembers = showAllTeamMembers ? currentTeam : currentTeam.slice(0, 6);
+  const visiblePairings = showAllPairings ? mentorPairings : mentorPairings.slice(0, 3);
   
   // Toggle skill selection
   const toggleSkillSelection = (skill: string) => {
@@ -289,7 +345,7 @@ export default function TeamOrchestratorPage() {
       
       // Calculate match percentage
       const matchPercentage = matchCount > 0 
-        ? Math.round(totalScore / (matchCount * 100) * 100)
+        ? Math.round(totalScore / matchCount)
         : 0;
         
       return {
@@ -343,26 +399,25 @@ export default function TeamOrchestratorPage() {
   };
 
   return (
-    <div className="flex h-screen bg-[#F6F6F3]">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#F6F6F3] via-[#FAFAFA] to-[#F0F0F0]">
       <Sidebar />
       
-      <div className="flex-1 p-6 ml-6 overflow-y-auto">
-        <div className="max-w-7xl mx-auto">
+      <div className="flex-1 lg:ml-[320px] p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        {/* Mobile top spacing for menu button */}
+        <div className="lg:hidden h-16 mb-4"></div>
+        
+        <div className="max-w-8xl mx-auto space-y-6 lg:space-y-8">
           {/* Main Header */}
-          <div className="bg-white bg-opacity-70 backdrop-blur-md rounded-2xl p-6 mb-8 shadow-sm border-l-4 border-[#9055FF]">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <div className="w-2 h-10 bg-gradient-to-b from-[#9055FF] to-[#BF82FF] rounded-full mr-4"></div>
-                <div>
-                  <h1 className="text-3xl font-bold text-[#131313] tracking-tight">Team Orchestrator</h1>
-                  <p className="text-sm text-[#6B6B6B] mt-1">Build optimal teams by matching skills with project requirements</p>
-                </div>
-              </div>
-              <div className="text-sm text-[#6B6B6B] bg-[#F6F6F3] px-3 py-1.5 rounded-full">
-                Last updated: <span className="font-medium">Today, 10:15 AM</span>
-              </div>
+          <PageHeader
+            title="Team Orchestrator"
+            description="Build optimal teams by matching skills with project requirements using AI-powered analysis"
+            accentColor="#9055FF"
+          >
+            <div className="text-sm text-[#6B6B6B] bg-white/80 backdrop-blur-sm px-4 py-2.5 rounded-2xl border border-[#E5E5E5] shadow-sm">
+              <span className="block sm:inline">Last updated: </span>
+              <span className="font-semibold text-[#131313]">Today, 10:15 AM</span>
             </div>
-          </div>
+          </PageHeader>
           
           <div className="grid grid-cols-1 gap-8">
             {/* Team Builder & Optimizer Section */}
@@ -449,19 +504,13 @@ export default function TeamOrchestratorPage() {
                   ))}
                 </div>
                 
-                <div className="flex gap-4 mb-4 px-4 pb-4 border-t-2 border-[#F4EBFF] pt-6">
+                <div className="flex justify-center mb-4 px-4 pb-4 border-t-2 border-[#F4EBFF] pt-6">
                   <Button
                     variant="primary"
                     size="md"
                     onClick={findOptimalTeam}
                   >
                     Find Optimal Team
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="md"
-                  >
-                    Evaluate Current Team
                   </Button>
                 </div>
               </Card>
@@ -502,26 +551,25 @@ export default function TeamOrchestratorPage() {
 
                 {currentTeam.length > 6 && (
                   <div className="flex justify-center">
-                    <button
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       onClick={() => setShowAllTeamMembers(!showAllTeamMembers)}
-                      className="text-sm font-medium text-[#BF82FF] hover:text-[#9055FF] transition-colors flex items-center gap-1"
-                    >
-                      {showAllTeamMembers ? (
-                        <>
-                          Show Less
+                      icon={
+                        showAllTeamMembers ? (
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19 15L12 8L5 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
-                        </>
-                      ) : (
-                        <>
-                          Show All Members
+                        ) : (
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 9L12 16L19 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
-                        </>
-                      )}
-                    </button>
+                        )
+                      }
+                      iconPosition="right"
+                    >
+                      {showAllTeamMembers ? 'Show Less' : 'Show All Members'}
+                    </Button>
                   </div>
                 )}
               </Card>
@@ -568,7 +616,7 @@ export default function TeamOrchestratorPage() {
                     <div className="text-base font-medium text-[#454545]">Fit Score</div>
                   </div>
                   
-                  {mentorPairings.map((pair, index) => (
+                  {visiblePairings.map((pair, index) => (
                     <MentorPairingCard 
                       key={index}
                       mentor={pair.mentor}
@@ -578,30 +626,45 @@ export default function TeamOrchestratorPage() {
                     />
                   ))}
                   
-                  <div className="flex justify-end mt-6 border-t-2 border-[#F4EBFF] pt-6">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      icon={
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      }
-                      iconPosition="right"
-                    >
-                      See more
-                    </Button>
-                  </div>
+                  {mentorPairings.length > 3 && (
+                    <div className="flex justify-center">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setShowAllPairings(!showAllPairings)}
+                        icon={
+                          showAllPairings ? (
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M19 15L12 8L5 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          ) : (
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M5 9L12 16L19 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          )
+                        }
+                        iconPosition="right"
+                      >
+                        {showAllPairings ? 'Show Less Pairings' : 'See More Pairings'}
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </Card>
             </div>
             
             {/* Footer */}
-            <div className="mt-6 pb-6">
-              <div className="text-center text-sm text-[#6B6B6B] opacity-70">
-                <p>AI Manager Hub • Made with ❤️ by Team 10 • Digital Business Innovation Lab • 2025 SACE Project</p>
+          <footer className="text-center py-8 border-t border-[#F0F0F0] bg-white/50 backdrop-blur-sm rounded-2xl">
+            <div className="text-sm text-[#6B6B6B]">
+              <p className="font-medium">AI Manager Hub • Made with ❤️ by Team 10</p>
+              <p className="text-xs mt-1 opacity-75">Digital Business Innovation Lab • 2025 SACE Project</p>
+              <div className="mt-4 pt-4 border-t border-[#F0F0F0]/50">
+                <p className="text-xs text-[#9B9B9B] italic">
+                  ⚠️ Disclaimer: All data, metrics, and information displayed in this application are fictional and created for demonstration purposes only. Any resemblance to real persons, companies, or events is purely coincidental.
+                </p>
               </div>
             </div>
+          </footer>
           </div>
         </div>
       </div>

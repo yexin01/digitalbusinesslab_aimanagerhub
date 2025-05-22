@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Sidebar from '@/components/Sidebar';
+import PageHeader from '@/components/PageHeader';
 import { FiCalendar, FiUsers, FiBarChart2, FiGlobe, FiFilter, FiChevronDown, FiChevronUp, FiClock } from 'react-icons/fi';
 
 type ProjectStatus = 'active' | 'completed' | 'planning';
@@ -219,15 +220,18 @@ const Projects = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#F6F6F3]">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#F6F6F3] via-[#FAFAFA] to-[#F0F0F0]">
       <Sidebar />
       
-      <div className="flex-1 p-6 ml-6 overflow-y-auto">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-[#131313] mb-2">Projects</h1>
-            <p className="text-[#6B6B6B]">Manage and track company&apos;s initiatives supporting Italian companies&apos; growth internationally</p>
-          </div>
+      <div className="flex-1 lg:ml-[320px] p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        {/* Mobile top spacing for menu button */}
+        <div className="lg:hidden h-16 mb-4"></div>
+        <div className="max-w-8xl mx-auto space-y-6 lg:space-y-8">
+          <PageHeader
+            title="Projects"
+            description="Manage and track company's initiatives supporting Italian companies' growth internationally"
+            accentColor="#BF82FF"
+          />
 
           {/* Filters */}
           <div className="flex items-center gap-4 mb-6 flex-wrap">
@@ -452,11 +456,17 @@ const Projects = () => {
             ))}
           </div>
           {/* Footer */}
-          <div className="mt-6 pb-6">
-              <div className="text-center text-sm text-[#6B6B6B] opacity-70">
-                <p>AI Manager Hub • Made with ❤️ by Team 10 • Digital Business Innovation Lab • 2025 SACE Project</p>
+          <footer className="text-center py-8 border-t border-[#F0F0F0] bg-white/50 backdrop-blur-sm rounded-2xl">
+            <div className="text-sm text-[#6B6B6B]">
+              <p className="font-medium">AI Manager Hub • Made with ❤️ by Team 10</p>
+              <p className="text-xs mt-1 opacity-75">Digital Business Innovation Lab • 2025 SACE Project</p>
+              <div className="mt-4 pt-4 border-t border-[#F0F0F0]/50">
+                <p className="text-xs text-[#9B9B9B] italic">
+                  ⚠️ Disclaimer: All data, metrics, and information displayed in this application are fictional and created for demonstration purposes only. Any resemblance to real persons, companies, or events is purely coincidental.
+                </p>
               </div>
             </div>
+          </footer>
         </div>
       </div>
     </div>

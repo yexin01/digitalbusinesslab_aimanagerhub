@@ -37,9 +37,8 @@ const TeamSuggestionCard: React.FC<TeamSuggestionCardProps> = ({
 
   return (
     <Card 
-      className="relative h-full"
+      className="relative h-full hover:shadow-md hover:-translate-y-1 transition-all duration-300"
       elevation="sm"
-      hoverEffect={true}
       padding="sm"
     >
       <div className="absolute top-0 left-0 bottom-0 w-1 rounded-l-2xl" style={{ backgroundColor: accentColor }}></div>

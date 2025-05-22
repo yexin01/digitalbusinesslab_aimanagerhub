@@ -14,7 +14,7 @@ const ActionCard: React.FC<ActionCardProps> = ({ type, title, description }) => 
     switch (type) {
       case 'HIGH_PRIORITY':
         return {
-          variant: 'error' as const,
+          variant: 'danger' as const,
           label: 'High Priority',
           icon: <FiAlertCircle size={14} />,
           borderColor: 'border-l-[#EB5050]',

@@ -128,7 +128,7 @@ const TeamOverview = () => {
           icon: <FiArrowDown size={16} />,
           color: 'text-[#EB5050]',
           bgColor: 'bg-[#FDECEC]',
-          badgeVariant: 'error' as const
+          badgeVariant: 'danger' as const
         };
       case 'warning':
         return {

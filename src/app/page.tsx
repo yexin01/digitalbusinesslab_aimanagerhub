@@ -1,6 +1,7 @@
 "use client";
 
 import Sidebar from '@/components/Sidebar';
+import PageHeader from '@/components/PageHeader';
 import StatCard from '@/components/StatCard';
 import ActionsSection from '@/components/ActionsSection';
 import PerformanceChart from '@/components/PerformanceChart';
@@ -108,35 +109,38 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex h-screen bg-[#F6F6F3]">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#F6F6F3] via-[#FAFAFA] to-[#F0F0F0]">
       <Sidebar />
       
-      <div className="flex-1 p-6 ml-6 overflow-y-auto">
-        <div className="max-w-7xl mx-auto">
+      {/* Main Content */}
+      <div className="flex-1 lg:ml-[320px] p-3 sm:p-4 md:p-6 lg:p-8 overflow-y-auto">
+        {/* Mobile top spacing for menu button */}
+        <div className="lg:hidden h-16 mb-3 sm:mb-4"></div>
+        
+        <div className="max-w-8xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8">
           {/* Main Header */}
-          <div className="bg-white bg-opacity-70 backdrop-blur-md rounded-2xl p-6 mb-8 shadow-sm border-l-4 border-[#4E97FF]">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <div className="w-2 h-10 bg-gradient-to-b from-[#4E97FF] to-[#BF82FF] rounded-full mr-4"></div>
-                <div>
-            <h1 className="text-3xl font-bold text-[#131313] tracking-tight">Dashboard Overview</h1>
-                  <p className="text-sm text-[#6B6B6B] mt-1">Monitor team performance and skill development</p>
-                </div>
-              </div>
-              <div className="text-sm text-[#6B6B6B] bg-[#F6F6F3] px-3 py-1.5 rounded-full">
-              Last updated: <span className="font-medium">Today, 9:41 AM</span>
-              </div>
+          <PageHeader
+            title="Dashboard Overview"
+            description="Monitor team performance and skill development in real-time"
+            accentColor="#4E97FF"
+          >
+            <div className="text-sm text-[#6B6B6B] bg-white/80 backdrop-blur-sm px-4 py-2.5 rounded-2xl border border-[#E5E5E5] shadow-sm">
+              <span className="block sm:inline">Last updated: </span>
+              <span className="font-semibold text-[#131313]">Today, 9:41 AM</span>
             </div>
-          </div>
+          </PageHeader>
           
           {/* Stats Section */}
-          <div className="mb-8">
-            <div className="flex items-baseline mb-4">
-              <div className="w-1 h-8 bg-[#9055FF] rounded-full mr-3"></div>
-              <h2 className="text-xl font-semibold text-[#131313]">Key Metrics</h2>
+          <section>
+            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 lg:mb-6">
+              <div className="w-1 sm:w-1.5 h-6 sm:h-8 lg:h-10 bg-gradient-to-b from-[#9055FF] to-[#BF82FF] rounded-full"></div>
+              <div>
+                <h2 className="text-base sm:text-lg lg:text-xl font-bold text-[#131313]">Key Metrics</h2>
+                <p className="text-xs lg:text-sm text-[#6B6B6B] mt-1 hidden sm:block">Essential performance indicators</p>
+              </div>
             </div>
           
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
               <StatCard 
                 title="Team Engagement" 
                 value="78%" 
@@ -158,112 +162,146 @@ export default function Home() {
                 trend={{ direction: 'none', value: 'No change' }}
               />
             </div>
-            </div>
+          </section>
             
-          {/* Priority Actions - Compact version */}
-          <div className="mb-8">
-            <div className="flex items-baseline mb-3">
-              <div className="w-1 h-8 bg-[#EB5050] rounded-full mr-3"></div>
-              <h2 className="text-xl font-semibold text-[#131313]">Priority Actions</h2>
-              <p className="text-xs text-[#6B6B6B] ml-2">Recommended actions requiring your attention</p>
+          {/* Priority Actions */}
+          <section>
+            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 lg:mb-6">
+              <div className="w-1 sm:w-1.5 h-6 sm:h-8 lg:h-10 bg-gradient-to-b from-[#EB5050] to-[#FF6B6B] rounded-full"></div>
+              <div>
+                <h2 className="text-base sm:text-lg lg:text-xl font-bold text-[#131313]">Priority Actions</h2>
+                <p className="text-xs lg:text-sm text-[#6B6B6B] mt-1 hidden sm:block">Recommended actions requiring your attention</p>
+              </div>
             </div>
-            <Card elevation="md" className="transition-all duration-300 border-l-4 border-[#EB5050] p-4">
+            <Card 
+              elevation="lg" 
+              className="border-l-4 border-[#EB5050] hover:shadow-xl transition-all duration-300"
+              padding="sm"
+            >
               <ActionsSection />
             </Card>
-          </div>
+          </section>
           
-          {/* Combined Performance Section */}
-          <div className="mb-8">
-            <div className="flex items-baseline mb-4">
-              <div className="w-1 h-8 bg-[#4E97FF] rounded-full mr-3"></div>
-              <h2 className="text-xl font-semibold text-[#131313]">Team Performance Analytics</h2>
-              <p className="text-xs text-[#6B6B6B] ml-2">Aggregated team performance metrics and distribution analysis</p>
+          {/* Performance Analytics */}
+          <section>
+            <div className="flex items-center gap-3 mb-4 lg:mb-6">
+              <div className="w-1.5 h-8 lg:h-10 bg-gradient-to-b from-[#4E97FF] to-[#7BB3FF] rounded-full"></div>
+              <div>
+                <h2 className="text-lg lg:text-xl font-bold text-[#131313]">Performance Analytics</h2>
+                <p className="text-xs lg:text-sm text-[#6B6B6B] mt-1">Aggregated team performance metrics and distribution analysis</p>
+              </div>
             </div>
             
-            <Card elevation="md" className="transition-all duration-300 border-l-4 border-[#4E97FF]">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
-                <div className="border-r-2 border-[#F4EBFF] pr-6">
-                  <h3 className="text-lg font-semibold text-[#131313] mb-4">Team Performance Metrics</h3>
+            <Card 
+              elevation="lg" 
+              className="border-l-4 border-[#4E97FF] overflow-hidden"
+            >
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-0">
+                <div className="p-4 sm:p-6 lg:p-8 border-b xl:border-b-0 xl:border-r border-[#F0F0F0]">
+                  <h3 className="text-base sm:text-lg font-bold text-[#131313] mb-4 sm:mb-6">Team Performance Metrics</h3>
                   <PerformanceChart />
                 </div>
-                <div className="pl-2">
-                  <h3 className="text-lg font-semibold text-[#131313] mb-4">Team Performance Distribution</h3>
+                <div className="p-4 sm:p-6 lg:p-8">
+                  <h3 className="text-base sm:text-lg font-bold text-[#131313] mb-4 sm:mb-6">Performance Distribution</h3>
                   <TeamPerformanceDistribution />
                 </div>
               </div>
             </Card>
-          </div>
+          </section>
             
-          {/* Team Section */}
-          <div className="mb-8">
-            <div className="flex items-baseline mb-4">
-              <div className="w-1 h-8 bg-[#9055FF] rounded-full mr-3"></div>
-              <h2 className="text-xl font-semibold text-[#131313]">Team Management</h2>
-              <p className="text-xs text-[#6B6B6B] ml-2">Team overview and recognition opportunities</p>
+          {/* Team Management */}
+          <section>
+            <div className="flex items-center gap-3 mb-4 lg:mb-6">
+              <div className="w-1.5 h-8 lg:h-10 bg-gradient-to-b from-[#9055FF] to-[#BF82FF] rounded-full"></div>
+              <div>
+                <h2 className="text-lg lg:text-xl font-bold text-[#131313]">Team Management</h2>
+                <p className="text-xs lg:text-sm text-[#6B6B6B] mt-1">Team overview and recognition opportunities</p>
+              </div>
             </div>
             
-            <Card elevation="md" className="transition-all duration-300 border-l-4 border-[#9055FF]">
+            <Card 
+              elevation="lg" 
+              className="border-l-4 border-[#9055FF]"
+            >
               <CombinedTeamManagement />
             </Card>
-          </div>
+          </section>
           
           {/* Skill Development */}
-          <div className="mb-8">
-            <div className="flex items-baseline mb-4">
-              <div className="w-1 h-8 bg-[#EB5050] rounded-full mr-3"></div>
-              <h2 className="text-xl font-semibold text-[#131313]">Skill Development</h2>
-              <p className="text-xs text-[#6B6B6B] ml-2">Areas requiring skill development and training</p>
+          <section>
+            <div className="flex items-center gap-3 mb-4 lg:mb-6">
+              <div className="w-1.5 h-8 lg:h-10 bg-gradient-to-b from-[#EB5050] to-[#FF6B6B] rounded-full"></div>
+              <div>
+                <h2 className="text-lg lg:text-xl font-bold text-[#131313]">Skill Development</h2>
+                <p className="text-xs lg:text-sm text-[#6B6B6B] mt-1">Areas requiring skill development and training</p>
+              </div>
             </div>
             
-            <Card elevation="md" className="transition-all duration-300 border-l-4 border-[#EB5050] mb-6">
-              <div className="px-6 pb-6">
-                <SkillGaps />
-              </div>
+            <Card 
+              elevation="lg" 
+              className="border-l-4 border-[#EB5050]"
+              padding="md"
+            >
+              <SkillGaps />
             </Card>
+          </section>
+            
+          {/* Skills Analysis */}
+          <section>
+            <div className="flex items-center gap-3 mb-4 lg:mb-6">
+              <div className="w-1.5 h-8 lg:h-10 bg-gradient-to-b from-[#BF82FF] to-[#E5B3FF] rounded-full"></div>
+              <div>
+                <h2 className="text-lg lg:text-xl font-bold text-[#131313]">Skills Analysis</h2>
+                <p className="text-xs lg:text-sm text-[#6B6B6B] mt-1">Comprehensive team skills breakdown and coverage analysis</p>
+              </div>
             </div>
             
-            {/* Skills Analysis section */}
-          <div className="mb-8">
-            <div className="flex items-baseline mb-4">
-              <div className="w-1 h-8 bg-[#BF82FF] rounded-full mr-3"></div>
-              <h2 className="text-xl font-semibold text-[#131313]">Skills Analysis</h2>
-              <p className="text-xs text-[#6B6B6B] ml-2">Comprehensive team skills breakdown and coverage analysis</p>
-              </div>
-            
-            <Card elevation="md" className="transition-all duration-300 border-l-4 border-[#BF82FF]">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 p-6">
-                <div className="bg-white bg-opacity-50 rounded-xl p-4 border border-[#F0F0F0]">
-                <SkillsRadarChart title="Team Skills Coverage" />
+            <Card 
+              elevation="lg" 
+              className="border-l-4 border-[#BF82FF] overflow-hidden"
+            >
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-0">
+                <div className="p-6 lg:p-8 border-b xl:border-b-0 xl:border-r border-[#F0F0F0] bg-gradient-to-br from-[#FAFAFA] to-white">
+                  <SkillsRadarChart title="Team Skills Coverage" />
                 </div>
-                <div className="bg-white bg-opacity-50 rounded-xl p-4 border border-[#F0F0F0]">
-                <SkillsDashboard title="Team Skills Breakdown" skills={teamSkills} />
+                <div className="p-6 lg:p-8 bg-gradient-to-br from-white to-[#FAFAFA]">
+                  <SkillsDashboard title="Team Skills Breakdown" skills={teamSkills} />
                 </div>
               </div>
             </Card>
-            </div>
+          </section>
             
-            {/* Team Member Skills & Achievements */}
-          <div className="mb-8">
-            <div className="flex items-baseline mb-4">
-              <div className="w-1 h-8 bg-[#4E97FF] rounded-full mr-3"></div>
-              <h2 className="text-xl font-semibold text-[#131313]">Team Skills & Achievements</h2>
-              <p className="text-xs text-[#6B6B6B] ml-2">Skills and learning achievements of team members</p>
+          {/* Team Skills & Achievements */}
+          <section className="pb-8">
+            <div className="flex items-center gap-3 mb-4 lg:mb-6">
+              <div className="w-1.5 h-8 lg:h-10 bg-gradient-to-b from-[#4E97FF] to-[#7BB3FF] rounded-full"></div>
+              <div>
+                <h2 className="text-lg lg:text-xl font-bold text-[#131313]">Team Skills & Achievements</h2>
+                <p className="text-xs lg:text-sm text-[#6B6B6B] mt-1">Skills and learning achievements of team members</p>
               </div>
+            </div>
             
-            <Card elevation="md" className="transition-all duration-300 border-l-4 border-[#4E97FF] p-6">
-              <TeamMemberMetrics 
-                title="Team Member Skills & Achievements" 
-                members={teamMemberSkills} 
-              />
+            <Card 
+              elevation="lg" 
+              className="border-l-4 border-[#4E97FF]"
+              padding="md"
+            >
+                             <TeamMemberMetrics members={teamMemberSkills} />
             </Card>
+          </section>
+          
+          {/* Footer */}
+          <footer className="text-center py-8 border-t border-[#F0F0F0] bg-white/50 backdrop-blur-sm rounded-2xl">
+            <div className="text-sm text-[#6B6B6B]">
+              <p className="font-medium">AI Manager Hub • Made with ❤️ by Team 10</p>
+              <p className="text-xs mt-1 opacity-75">Digital Business Innovation Lab • 2025 SACE Project</p>
+              <div className="mt-4 pt-4 border-t border-[#F0F0F0]/50">
+                <p className="text-xs text-[#9B9B9B] italic">
+                  ⚠️ Disclaimer: All data, metrics, and information displayed in this application are fictional and created for demonstration purposes only. Any resemblance to real persons, companies, or events is purely coincidental.
+                </p>
+              </div>
             </div>
-            
-            {/* Footer */}
-          <div className="mt-6 pb-6">
-              <div className="text-center text-sm text-[#6B6B6B] opacity-70">
-                <p>AI Manager Hub • Made with ❤️ by Team 10 • Digital Business Innovation Lab • 2025 SACE Project</p>
-            </div>
-          </div>
+          </footer>
         </div>
       </div>
     </div>

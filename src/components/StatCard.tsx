@@ -51,18 +51,18 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, trend, className = ''
     <Card 
       className={`${className} flex flex-col transform transition-transform duration-300 hover:translate-y-[-5px]`}
       elevation="sm"
-      padding="md"
+      padding="sm"
     >
-      <div className="mb-4">
-        <h3 className="text-sm font-medium text-[#454545]">{title}</h3>
+      <div className="mb-2 sm:mb-4">
+        <h3 className="text-xs sm:text-sm font-medium text-[#454545]">{title}</h3>
       </div>
       <div className="flex justify-center items-center">
-        <span className="text-3xl font-bold text-[#131313]">{value}</span>
+        <span className="text-2xl sm:text-3xl font-bold text-[#131313]">{value}</span>
       </div>
       {trend && (
-        <div className={`flex items-center gap-1 text-sm font-medium mt-4 ${getTrendColor()}`}>
+        <div className={`flex items-center gap-1 text-xs sm:text-sm font-medium mt-2 sm:mt-4 ${getTrendColor()}`}>
           {getTrendIcon()}
-          <span>{trend.value}</span>
+          <span className="truncate">{trend.value}</span>
         </div>
       )}
     </Card>

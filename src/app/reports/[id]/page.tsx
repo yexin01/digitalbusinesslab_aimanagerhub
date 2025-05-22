@@ -2,8 +2,10 @@
 
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
 import Sidebar from '@/components/Sidebar';
 import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 import { FiArrowLeft, FiDownload, FiBarChart2, FiUsers, FiPieChart, FiCalendar } from 'react-icons/fi';
 import { Bar, Line, Doughnut } from 'react-chartjs-2';
 import {
@@ -128,7 +130,12 @@ const skillsData = {
     { name: 'Maggie Johnson', role: 'UX Designer', avatar: '/images/maggie_avatar.png', skills: ['UI Design', 'User Research', 'Figma'], level: 88 },
     { name: 'Gael Harry', role: 'Software Engineer', avatar: '/images/gael_avatar.png', skills: ['Python', 'Django', 'Docker'], level: 85 },
     { name: 'Jenna Sullivan', role: 'QA Engineer', avatar: '/images/jenna_avatar.png', skills: ['Test Automation', 'Selenium'], level: 80 },
-    { name: 'Marco Rossi', role: 'Data Scientist', avatar: '/images/new_avatars/ryan_avatar.png', skills: ['Machine Learning', 'Python', 'TensorFlow'], level: 95 }
+    { name: 'Marco Rossi', role: 'Data Scientist', avatar: '/images/new_avatars/ryan_avatar.png', skills: ['Machine Learning', 'Python', 'TensorFlow'], level: 95 },
+    { name: 'Emily Chen', role: 'Product Manager', avatar: '/images/new_avatars/sophia_avatar.png', skills: ['Product Strategy', 'Agile', 'User Stories'], level: 90 },
+    { name: 'Alex Martinez', role: 'Frontend Developer', avatar: '/images/new_avatars/alex_avatar.png', skills: ['React', 'TypeScript', 'CSS'], level: 87 },
+    { name: 'Sophia Kim', role: 'Backend Developer', avatar: '/images/new_avatars/laura_avatar.png', skills: ['Java', 'Spring Boot', 'Microservices'], level: 91 },
+    { name: 'Daniel Wilson', role: 'DevOps Engineer', avatar: '/images/new_avatars/daniel_avatar.png', skills: ['Kubernetes', 'CI/CD', 'Cloud'], level: 89 },
+    { name: 'Anna Petrov', role: 'UI Designer', avatar: '/images/new_avatars/anna_avatar.png', skills: ['UI Design', 'Visual Design', 'Animation'], level: 86 }
   ],
   skillDistribution: {
     labels: ['JavaScript', 'React', 'Node.js', 'Python', 'UI/UX', 'Machine Learning', 'DevOps'],
@@ -265,7 +272,12 @@ const trainingData = {
     { name: 'Maggie Johnson', role: 'UX Designer', avatar: '/images/maggie_avatar.png', courses: ['UX Research Methods', 'Design Systems'], completionRate: 88 },
     { name: 'Gael Harry', role: 'Software Engineer', avatar: '/images/gael_avatar.png', courses: ['Python Advanced', 'Microservices'], completionRate: 75 },
     { name: 'Jenna Sullivan', role: 'QA Engineer', avatar: '/images/jenna_avatar.png', courses: ['Test Automation', 'CI/CD Pipelines'], completionRate: 80 },
-    { name: 'Marco Rossi', role: 'Data Scientist', avatar: '/images/new_avatars/ryan_avatar.png', courses: ['Deep Learning', 'NLP Fundamentals'], completionRate: 95 }
+    { name: 'Marco Rossi', role: 'Data Scientist', avatar: '/images/new_avatars/ryan_avatar.png', courses: ['Deep Learning', 'NLP Fundamentals'], completionRate: 95 },
+    { name: 'Emily Chen', role: 'Product Manager', avatar: '/images/new_avatars/sophia_avatar.png', courses: ['Product Management', 'Agile Methodologies'], completionRate: 85 },
+    { name: 'Alex Martinez', role: 'Frontend Developer', avatar: '/images/new_avatars/alex_avatar.png', courses: ['React Advanced', 'Performance Optimization'], completionRate: 78 },
+    { name: 'Sophia Kim', role: 'Backend Developer', avatar: '/images/new_avatars/laura_avatar.png', courses: ['Spring Boot', 'Microservices Architecture'], completionRate: 91 },
+    { name: 'Daniel Wilson', role: 'DevOps Engineer', avatar: '/images/new_avatars/daniel_avatar.png', courses: ['Kubernetes Mastery', 'Cloud Security'], completionRate: 89 },
+    { name: 'Anna Petrov', role: 'UI Designer', avatar: '/images/new_avatars/anna_avatar.png', courses: ['Design Systems', 'UI Animation'], completionRate: 82 }
   ]
 };
 
@@ -279,19 +291,21 @@ const ReportDetailPage = () => {
   
   if (!reportDef) {
     return (
-      <div className="flex h-screen bg-[#F6F6F3]">
+      <div className="flex min-h-screen bg-gradient-to-br from-[#F6F6F3] via-[#FAFAFA] to-[#F0F0F0]">
         <Sidebar />
-        <div className="flex-1 p-6 ml-6 overflow-y-auto">
-          <div className="max-w-7xl mx-auto">
-            <Card elevation="md" className="p-6">
-              <h1 className="text-2xl font-bold text-[#131313]">Report not found</h1>
-              <p className="mt-2 text-[#6B6B6B]">The requested report does not exist.</p>
-              <button
-                className="mt-4 flex items-center text-[#9055FF]"
+        <div className="flex-1 lg:ml-[320px] p-4 sm:p-6 lg:p-8 overflow-y-auto">
+          <div className="lg:hidden h-16 mb-4"></div>
+          <div className="max-w-4xl mx-auto">
+            <Card elevation="lg" padding="lg" className="text-center">
+              <h1 className="text-2xl font-bold text-[#131313] mb-4">Report not found</h1>
+              <p className="text-[#6B6B6B] mb-6">The requested report does not exist.</p>
+              <Button
+                variant="primary"
+                icon={<FiArrowLeft />}
                 onClick={() => router.push('/reports')}
               >
-                <FiArrowLeft className="mr-2" /> Back to Reports
-              </button>
+                Back to Reports
+              </Button>
             </Card>
           </div>
         </div>
@@ -304,10 +318,10 @@ const ReportDetailPage = () => {
     switch (reportDef.type) {
       case 'performance':
         return (
-          <>
-            <div className="bg-white rounded-xl p-6 mb-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-4">Performance Trend (Team Average)</h3>
-              <div className="h-80">
+          <div className="space-y-6 lg:space-y-8">
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Performance Trend (Team Average)</h3>
+              <div className="h-64 lg:h-80">
                 <Line 
                   data={performanceData.aggregatedOverTime} 
                   options={{
@@ -323,18 +337,18 @@ const ReportDetailPage = () => {
                   }} 
                 />
               </div>
-              <p className="text-sm text-[#454545] mt-4">
+              <p className="text-sm text-[#454545] mt-6">
                 This chart displays the team&apos;s average performance score over the past 8 months. The upward trend indicates continuous improvement in overall team effectiveness.
               </p>
               <p className="text-xs text-[#6B6B6B] mt-2">
                 Note: This chart shows aggregated team performance over time. Individual performance data is not displayed to maintain anonymity.
               </p>
-            </div>
+            </Card>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-lg font-semibold mb-4">Performance by Category</h3>
-                <div className="h-72">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+              <Card elevation="lg" padding="lg">
+                <h3 className="text-lg lg:text-xl font-bold mb-6">Performance by Category</h3>
+                <div className="h-64 lg:h-72">
                   <Bar 
                     data={performanceData.categoryBreakdown} 
                     options={{
@@ -350,14 +364,14 @@ const ReportDetailPage = () => {
                     }} 
                   />
                 </div>
-                <p className="text-sm text-[#454545] mt-4">
+                <p className="text-sm text-[#454545] mt-6">
                   This breakdown compares current quarter performance against the previous quarter across five key categories. The team shows improvement in all areas, with the strongest growth in Collaboration and Communication.
                 </p>
-              </div>
+              </Card>
 
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-lg font-semibold mb-4">Performance Distribution</h3>
-                <div className="h-72">
+              <Card elevation="lg" padding="lg">
+                <h3 className="text-lg lg:text-xl font-bold mb-6">Performance Distribution</h3>
+                <div className="h-64 lg:h-72">
                   <Bar 
                     data={performanceData.distributionStats}
                     options={{
@@ -374,33 +388,30 @@ const ReportDetailPage = () => {
                     }}
                   />
                 </div>
-                <p className="text-sm text-[#454545] mt-4">
+                <p className="text-sm text-[#454545] mt-6">
                   This chart shows how team members are distributed across performance score ranges. Most team members (13 out of 20) are performing above the 80% threshold.
                 </p>
-                <p className="text-xs text-[#6B6B6B] mt-2">
-                  Distribution shows how many team members fall into each performance range.
-                </p>
-              </div>
+              </Card>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
-              <h3 className="text-lg font-semibold mb-4">Key Insights</h3>
-              <ul className="list-disc pl-5 space-y-2">
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Key Insights</h3>
+              <ul className="list-disc pl-5 space-y-3 text-sm lg:text-base">
                 <li>Team performance has shown consistent improvement over the last 8 months</li>
                 <li>Strongest areas are Collaboration (92%) and Communication (88%)</li>
                 <li>Areas for improvement include Code Quality (79%)</li>
                 <li>80% of team members perform above the 80% threshold</li>
               </ul>
-            </div>
-          </>
+            </Card>
+          </div>
         );
 
       case 'skills':
         return (
-          <>
-            <div className="bg-white rounded-xl p-6 mb-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-4">Team Skills Coverage</h3>
-              <div className="h-80">
+          <div className="space-y-6 lg:space-y-8">
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Team Skills Coverage</h3>
+              <div className="h-64 lg:h-80">
                 <Bar 
                   data={skillsData.skillDistribution} 
                   options={{
@@ -416,13 +427,13 @@ const ReportDetailPage = () => {
                   }} 
                 />
               </div>
-              <p className="text-sm text-[#454545] mt-4">
+              <p className="text-sm text-[#454545] mt-6">
                 This chart compares current skill coverage against target coverage levels across key technical areas. JavaScript, React, and UI/UX skills exceed targets, while Python, Machine Learning, and DevOps show gaps that may need to be addressed through training or recruitment.
               </p>
-            </div>
+            </Card>
 
-            <div className="bg-white rounded-xl p-6 mb-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-4">Team Member Skills</h3>
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Team Member Skills</h3>
               <div className="overflow-x-auto">
                 <table className="min-w-full">
                   <thead>
@@ -438,11 +449,19 @@ const ReportDetailPage = () => {
                       <tr key={index} className={index % 2 === 0 ? 'bg-[#F6F6F3]' : ''}>
                         <td className="py-3 px-4">
                           <div className="flex items-center">
-                            <div className="w-8 h-8 rounded-full bg-[#E0E0E0] mr-3"></div>
-                            <span>{member.name}</span>
+                            <div className="relative w-8 h-8 rounded-full mr-3 flex-shrink-0 overflow-hidden">
+                              <Image 
+                                src={member.avatar} 
+                                alt={member.name}
+                                fill
+                                sizes="32px"
+                                className="object-cover"
+                              />
+                            </div>
+                            <span className="text-sm">{member.name}</span>
                           </div>
                         </td>
-                        <td className="py-3 px-4">{member.role}</td>
+                        <td className="py-3 px-4 text-sm">{member.role}</td>
                         <td className="py-3 px-4">
                           <div className="flex flex-wrap gap-1">
                             {member.skills.map((skill, i) => (
@@ -457,13 +476,13 @@ const ReportDetailPage = () => {
                         </td>
                         <td className="py-3 px-4">
                           <div className="flex items-center">
-                            <div className="w-full max-w-[150px] bg-[#F0F0F0] rounded-full h-2.5 mr-2">
+                            <div className="w-full max-w-[120px] bg-[#F0F0F0] rounded-full h-2.5 mr-2">
                               <div 
                                 className="bg-[#4E97FF] h-2.5 rounded-full" 
                                 style={{ width: `${member.level}%` }}
                               ></div>
                             </div>
-                            <span className="text-sm text-[#454545]">{member.level}%</span>
+                            <span className="text-sm text-[#454545] min-w-[3rem]">{member.level}%</span>
                           </div>
                         </td>
                       </tr>
@@ -471,86 +490,16 @@ const ReportDetailPage = () => {
                   </tbody>
                 </table>
               </div>
-              <p className="text-sm text-[#454545] mt-4">
-                This table shows individual skill proficiency levels for key team members. This information can be used for project staffing and skill development planning. Marco Rossi (Data Scientist) and Chris Friedkly (Senior Developer) demonstrate the highest overall skill proficiency.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
-              <h3 className="text-lg font-semibold mb-4">Training Progress</h3>
-              <div className="h-72">
-                <Bar 
-                  data={skillsData.trainingProgress}
-                  options={{
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                      y: {
-                        min: 0,
-                        max: 100,
-                        ticks: { callback: (value) => `${value}%` }
-                      }
-                    },
-                    indexAxis: 'y' as const,
-                  }}
-                />
-              </div>
-              <p className="text-sm text-[#454545] mt-4">
-                This chart shows the completion percentage of training programs across different skill areas. JavaScript training has the highest completion rate (85%), while DevOps training has the lowest (45%) and requires additional focus.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
-              <h3 className="text-lg font-semibold mb-4">Skill Gap Analysis</h3>
-              <div className="overflow-x-auto">
-                <table className="min-w-full">
-                  <thead>
-                    <tr className="border-b border-[#F0F0F0]">
-                      <th className="text-left py-3 px-4 text-sm font-medium text-[#6B6B6B]">Skill Area</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-[#6B6B6B]">Current Level</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-[#6B6B6B]">Target Level</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-[#6B6B6B]">Gap</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-[#6B6B6B]">Recommended Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="bg-[#F6F6F3]">
-                      <td className="py-3 px-4">DevOps</td>
-                      <td className="py-3 px-4">58%</td>
-                      <td className="py-3 px-4">75%</td>
-                      <td className="py-3 px-4">17%</td>
-                      <td className="py-3 px-4">Training program for 5 team members</td>
-                    </tr>
-                    <tr>
-                      <td className="py-3 px-4">Machine Learning</td>
-                      <td className="py-3 px-4">72%</td>
-                      <td className="py-3 px-4">80%</td>
-                      <td className="py-3 px-4">8%</td>
-                      <td className="py-3 px-4">Advanced training for 2 members</td>
-                    </tr>
-                    <tr className="bg-[#F6F6F3]">
-                      <td className="py-3 px-4">Python</td>
-                      <td className="py-3 px-4">65%</td>
-                      <td className="py-3 px-4">80%</td>
-                      <td className="py-3 px-4">15%</td>
-                      <td className="py-3 px-4">Training program for 3 team members</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <p className="text-sm text-[#454545] mt-4">
-                This analysis identifies skill gaps and recommends targeted training interventions. The largest gaps are in DevOps (17%) and Python (15%), which should be prioritized for team development.
-              </p>
-            </div>
-          </>
+            </Card>
+          </div>
         );
 
       case 'training':
         return (
-          <>
-            <div className="bg-white rounded-xl p-6 mb-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-4">Training Hours Over Time</h3>
-              <div className="h-80">
+          <div className="space-y-6 lg:space-y-8">
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Training Hours Over Time</h3>
+              <div className="h-64 lg:h-80">
                 <Line 
                   data={trainingData.trainingHours} 
                   options={{
@@ -567,15 +516,15 @@ const ReportDetailPage = () => {
                   }} 
                 />
               </div>
-              <p className="text-sm text-[#454545] mt-4">
+              <p className="text-sm text-[#454545] mt-6">
                 This chart shows the average training hours completed per team member each month. The upward trend indicates increasing investment in skill development, with a peak of 45 hours in July.
               </p>
-            </div>
+            </Card>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-lg font-semibold mb-4">Course Completion Status</h3>
-                <div className="h-72">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+              <Card elevation="lg" padding="lg">
+                <h3 className="text-lg lg:text-xl font-bold mb-6">Course Completion Status</h3>
+                <div className="h-64 lg:h-72">
                   <Doughnut 
                     data={trainingData.courseCompletion}
                     options={{
@@ -589,14 +538,14 @@ const ReportDetailPage = () => {
                     }}
                   />
                 </div>
-                <p className="text-sm text-[#454545] mt-4">
+                <p className="text-sm text-[#454545] mt-6">
                   This chart shows the distribution of course completion status across all team members. 45% of assigned courses have been completed, 35% are in progress, and 20% have not yet been started.
                 </p>
-              </div>
+              </Card>
 
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-lg font-semibold mb-4">Training Completion by Subject</h3>
-                <div className="h-72">
+              <Card elevation="lg" padding="lg">
+                <h3 className="text-lg lg:text-xl font-bold mb-6">Training Completion by Subject</h3>
+                <div className="h-64 lg:h-72">
                   <Bar 
                     data={trainingData.completionRates}
                     options={{
@@ -613,14 +562,14 @@ const ReportDetailPage = () => {
                     }}
                   />
                 </div>
-                <p className="text-sm text-[#454545] mt-4">
+                <p className="text-sm text-[#454545] mt-6">
                   This chart shows completion rates for different training subjects. JavaScript training has the highest completion rate (85%), while DevOps training has the lowest (45%).
                 </p>
-              </div>
+              </Card>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-4">Team Member Training Status</h3>
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Team Member Training Status</h3>
               <div className="overflow-x-auto">
                 <table className="min-w-full">
                   <thead>
@@ -636,7 +585,15 @@ const ReportDetailPage = () => {
                       <tr key={index} className={index % 2 === 0 ? 'bg-[#F6F6F3]' : ''}>
                         <td className="py-3 px-4">
                           <div className="flex items-center">
-                            <div className="w-8 h-8 rounded-full bg-[#E0E0E0] mr-3"></div>
+                            <div className="relative w-8 h-8 rounded-full mr-3 overflow-hidden">
+                              <Image 
+                                src={member.avatar} 
+                                alt={member.name}
+                                fill
+                                sizes="32px"
+                                className="object-cover"
+                              />
+                            </div>
                             <span>{member.name}</span>
                           </div>
                         </td>
@@ -669,30 +626,27 @@ const ReportDetailPage = () => {
                   </tbody>
                 </table>
               </div>
-              <p className="text-sm text-[#454545] mt-4">
-                This table shows the current training status for each team member. Marco Rossi has the highest completion rate (95%), followed by Chris Friedkly (92%). Gael Harry has the lowest completion rate (75%) and may need additional support.
-              </p>
-            </div>
+            </Card>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
-              <h3 className="text-lg font-semibold mb-4">Key Insights</h3>
-              <ul className="list-disc pl-5 space-y-2">
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Key Insights</h3>
+              <ul className="list-disc pl-5 space-y-3 text-sm lg:text-base">
                 <li>Overall training completion rate has improved by 15% compared to the previous quarter</li>
                 <li>JavaScript training has the highest completion rate (85%)</li>
                 <li>DevOps training has the lowest completion rate (45%) and requires additional focus</li>
                 <li>Training hours per team member have increased by 66% since January</li>
                 <li>3 team members have completed all assigned courses</li>
               </ul>
-            </div>
-          </>
+            </Card>
+          </div>
         );
 
       case 'engagement':
         return (
-          <>
-            <div className="bg-white rounded-xl p-6 mb-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-4">Team Engagement Trend</h3>
-              <div className="h-80">
+          <div className="space-y-6 lg:space-y-8">
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Team Engagement Trend</h3>
+              <div className="h-64 lg:h-80">
                 <Line 
                   data={engagementData.overTime} 
                   options={{
@@ -708,18 +662,18 @@ const ReportDetailPage = () => {
                   }} 
                 />
               </div>
-              <p className="text-sm text-[#454545] mt-4">
+              <p className="text-sm text-[#454545] mt-6">
                 This chart tracks team engagement levels over the past 8 months. The overall trend shows improvement, with engagement increasing from 72% in January to 88% in August, representing a 16% increase.
               </p>
               <p className="text-xs text-[#6B6B6B] mt-2">
                 Note: This chart shows aggregated team engagement over time. Individual engagement data is not displayed to maintain anonymity.
               </p>
-            </div>
+            </Card>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-lg font-semibold mb-4">Engagement Factors</h3>
-                <div className="h-72">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+              <Card elevation="lg" padding="lg">
+                <h3 className="text-lg lg:text-xl font-bold mb-6">Engagement Factors</h3>
+                <div className="h-64 lg:h-72">
                   <Bar 
                     data={engagementData.factorBreakdown} 
                     options={{
@@ -735,14 +689,14 @@ const ReportDetailPage = () => {
                     }} 
                   />
                 </div>
-                <p className="text-sm text-[#454545] mt-4">
+                <p className="text-sm text-[#454545] mt-6">
                   This chart breaks down engagement by key factors. Team Cohesion scores highest (88%), while Work-Life Balance shows the lowest score (76%) and may need targeted interventions.
                 </p>
-              </div>
+              </Card>
 
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-lg font-semibold mb-4">Sentiment Distribution</h3>
-                <div className="h-72">
+              <Card elevation="lg" padding="lg">
+                <h3 className="text-lg lg:text-xl font-bold mb-6">Sentiment Distribution</h3>
+                <div className="h-64 lg:h-72">
                   <Doughnut 
                     data={engagementData.sentimentDistribution}
                     options={{
@@ -756,29 +710,29 @@ const ReportDetailPage = () => {
                     }}
                   />
                 </div>
-                <p className="text-sm text-[#454545] mt-4">
+                <p className="text-sm text-[#454545] mt-6">
                   This chart shows the distribution of sentiment responses from team surveys. 80% of responses are positive or very positive, while only 5% are negative or very negative, indicating overall healthy team morale.
                 </p>
-              </div>
+              </Card>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
-              <h3 className="text-lg font-semibold mb-4">Key Insights</h3>
-              <ul className="list-disc pl-5 space-y-2">
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Key Insights</h3>
+              <ul className="list-disc pl-5 space-y-3 text-sm lg:text-base">
                 <li>Team engagement has improved by 16% over the last 8 months</li>
                 <li>Strongest engagement factor is Team Cohesion (88%)</li>
                 <li>Work-Life Balance shows the lowest score (76%) and may need attention</li>
                 <li>80% of sentiment responses are positive or very positive</li>
               </ul>
-            </div>
-          </>
+            </Card>
+          </div>
         );
 
       case 'goals':
         return (
-          <>
-            <div className="bg-white rounded-xl p-6 mb-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-4">Goals Overview</h3>
+          <div className="space-y-6 lg:space-y-8">
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Goals Overview</h3>
               <div className="overflow-x-auto">
                 <table className="min-w-full">
                   <thead>
@@ -831,15 +785,15 @@ const ReportDetailPage = () => {
                   </tbody>
                 </table>
               </div>
-              <p className="text-sm text-[#454545] mt-4">
+              <p className="text-sm text-[#454545] mt-6">
                 This table provides a detailed view of current team goals, their progress, status, and due dates. Most goals are on track or completed, with the &quot;Implement CI/CD Pipeline&quot; goal at risk and requiring attention.
               </p>
-            </div>
+            </Card>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-lg font-semibold mb-4">Goal Progress Distribution</h3>
-                <div className="h-72">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+              <Card elevation="lg" padding="lg">
+                <h3 className="text-lg lg:text-xl font-bold mb-6">Goal Progress Distribution</h3>
+                <div className="h-64 lg:h-72">
                   <Bar 
                     data={goalsData.progressDistribution} 
                     options={{
@@ -856,14 +810,14 @@ const ReportDetailPage = () => {
                     }} 
                   />
                 </div>
-                <p className="text-sm text-[#454545] mt-4">
+                <p className="text-sm text-[#454545] mt-6">
                   This chart shows how many goals fall into each progress category. Most goals (16 of 22) are over 50% complete, with 7 fully completed goals. Only 3 goals are in early stages (under 25% complete).
                 </p>
-              </div>
+              </Card>
 
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-lg font-semibold mb-4">Goal Status Breakdown</h3>
-                <div className="h-72">
+              <Card elevation="lg" padding="lg">
+                <h3 className="text-lg lg:text-xl font-bold mb-6">Goal Status Breakdown</h3>
+                <div className="h-64 lg:h-72">
                   <Doughnut 
                     data={goalsData.statusBreakdown}
                     options={{
@@ -877,79 +831,101 @@ const ReportDetailPage = () => {
                     }}
                   />
                 </div>
-                <p className="text-sm text-[#454545] mt-4">
+                <p className="text-sm text-[#454545] mt-6">
                   This chart shows the distribution of goals by status. 7 goals are completed and 12 are on track, representing 83% of all goals. Only 4 goals (17%) are at risk or delayed and require management attention.
                 </p>
-              </div>
+              </Card>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
-              <h3 className="text-lg font-semibold mb-4">Key Insights</h3>
-              <ul className="list-disc pl-5 space-y-2">
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Key Insights</h3>
+              <ul className="list-disc pl-5 space-y-3 text-sm lg:text-base">
                 <li>83% of goals are either completed or on track</li>
                 <li>&quot;Reduce Bug Rate&quot; goal was completed ahead of schedule</li>
                 <li>&quot;Implement CI/CD Pipeline&quot; is at risk and needs immediate attention</li>
                 <li>Most goals (73%) are over 50% complete</li>
                 <li>Only one goal is currently delayed</li>
               </ul>
-            </div>
-          </>
+            </Card>
+          </div>
         );
 
       default:
         return (
-          <div className="bg-white rounded-xl p-6 shadow-sm">
-            <p>No data available for this report type.</p>
-          </div>
+          <Card elevation="lg" padding="lg" className="text-center">
+            <p className="text-[#6B6B6B]">No data available for this report type.</p>
+          </Card>
         );
     }
   };
 
   return (
-    <div className="flex h-screen bg-[#F6F6F3]">
+    <div className="flex min-h-screen bg-gradient-to-br from-[#F6F6F3] via-[#FAFAFA] to-[#F0F0F0]">
       <Sidebar />
       
-      <div className="flex-1 p-6 ml-6 overflow-y-auto">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="flex items-center mb-4">
-            <button
-              className="p-2 rounded-lg hover:bg-white mr-2 transition-colors"
+      <div className="flex-1 lg:ml-[320px] p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        <div className="lg:hidden h-16 mb-4"></div>
+        
+        <div className="max-w-8xl mx-auto space-y-6 lg:space-y-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
+            <Button
+              variant="ghost"
+              size="md"
+              icon={<FiArrowLeft size={20} />}
               onClick={() => router.push('/reports')}
+              className="flex-shrink-0"
             >
-              <FiArrowLeft size={20} className="text-[#6B6B6B]" />
-            </button>
-            <h1 className="text-2xl font-bold text-[#131313]">{reportDef.title}</h1>
+              <span className="hidden sm:inline">Back to Reports</span>
+              <span className="sm:hidden">Back</span>
+            </Button>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#131313] flex-1">
+              {reportDef.title}
+            </h1>
           </div>
           
-          {/* Report Info Card */}
-          <Card elevation="md" className="mb-6">
-            <div className="p-6 flex items-center justify-between">
-              <div className="flex items-center">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white bg-[${reportDef.color}]`}>
-                  {React.cloneElement(reportDef.icon as React.ReactElement, { size: 24 })}
+          <Card elevation="lg" className="overflow-hidden">
+            <div className="p-6 lg:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+              <div className="flex items-start lg:items-center gap-4 flex-1">
+                <div 
+                  className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center text-white shadow-lg flex-shrink-0"
+                  style={{ backgroundColor: reportDef.color }}
+                >
+                  {React.cloneElement(reportDef.icon as React.ReactElement, { size: 28 })}
                 </div>
-                <div className="ml-4">
-                  <h2 className="text-xl font-semibold text-[#131313]">{reportDef.title}</h2>
-                  <p className="text-sm text-[#6B6B6B]">{reportDef.description}</p>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-xl lg:text-2xl font-bold text-[#131313] mb-2">
+                    {reportDef.title}
+                  </h2>
+                  <p className="text-sm lg:text-base text-[#6B6B6B] leading-relaxed">
+                    {reportDef.description}
+                  </p>
                 </div>
               </div>
-              <button className="flex items-center gap-2 bg-[#F4EBFF] hover:bg-[#EDE5FF] text-[#9055FF] px-4 py-2 rounded-xl transition-colors">
-                <FiDownload size={16} />
-                <span className="text-sm font-medium">Export Report</span>
-              </button>
+              <Button
+                variant="primary"
+                size="lg"
+                icon={<FiDownload size={16} />}
+                className="w-full lg:w-auto flex-shrink-0"
+              >
+                <span className="hidden sm:inline">Export Report</span>
+                <span className="sm:hidden">Export</span>
+              </Button>
             </div>
           </Card>
           
-          {/* Dynamic Content Based on Report Type */}
           {renderReportContent()}
           
-          {/* Footer */}
-          <div className="mt-6 pb-6">
-            <div className="text-center text-sm text-[#6B6B6B] opacity-70">
-              <p>AI Manager Hub • Made with ❤️ by Team 10 • Digital Business Innovation Lab • 2025 SACE Project</p>
+          <footer className="text-center py-8 border-t border-[#F0F0F0] bg-white/50 backdrop-blur-sm rounded-2xl">
+            <div className="text-sm text-[#6B6B6B]">
+              <p className="font-medium">AI Manager Hub • Made with ❤️ by Team 10</p>
+              <p className="text-xs mt-1 opacity-75">Digital Business Innovation Lab • 2025 SACE Project</p>
+              <div className="mt-4 pt-4 border-t border-[#F0F0F0]/50">
+                <p className="text-xs text-[#9B9B9B] italic">
+                  ⚠️ Disclaimer: All data, metrics, and information displayed in this application are fictional and created for demonstration purposes only. Any resemblance to real persons, companies, or events is purely coincidental.
+                </p>
+              </div>
             </div>
-          </div>
+          </footer>
         </div>
       </div>
     </div>

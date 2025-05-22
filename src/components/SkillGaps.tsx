@@ -1,8 +1,9 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Badge from './ui/Badge';
-import { FiArrowRight } from 'react-icons/fi';
+import Button from './ui/Button';
+import { FiArrowRight, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 interface SkillGap {
   id: string;
@@ -14,6 +15,8 @@ interface SkillGap {
 }
 
 const SkillGaps = () => {
+  const [showAllGaps, setShowAllGaps] = useState(false);
+  
   const skillGaps: SkillGap[] = [
     {
       id: '1',
@@ -38,8 +41,34 @@ const SkillGaps = () => {
       recommendation: 'Prompting with ChatGPT',
       platform: 'Coursera',
       affectedMembers: 7
+    },
+    {
+      id: '4',
+      name: 'Cloud Architecture',
+      percentage: 45,
+      recommendation: 'AWS Solutions Architect',
+      platform: 'Udemy',
+      affectedMembers: 6
+    },
+    {
+      id: '5',
+      name: 'Machine Learning',
+      percentage: 42,
+      recommendation: 'ML Engineering',
+      platform: 'Coursera',
+      affectedMembers: 3
+    },
+    {
+      id: '6',
+      name: 'DevOps',
+      percentage: 38,
+      recommendation: 'Docker & Kubernetes',
+      platform: 'LinkedIn',
+      affectedMembers: 4
     }
   ];
+
+  const visibleGaps = showAllGaps ? skillGaps : skillGaps.slice(0, 3);
 
   const getPlatformColor = (platform?: 'LinkedIn' | 'Udemy' | 'Coursera') => {
     switch (platform) {
@@ -57,13 +86,13 @@ const SkillGaps = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-2">
-        <Badge variant="error" size="sm" dot className="text-xs py-0.5">
+        <Badge variant="danger" size="sm" dot className="text-xs py-0.5">
           Needs Attention
         </Badge>
       </div>
       
       <div className="grid grid-cols-3 gap-3">
-        {skillGaps.map((skill) => (
+        {visibleGaps.map((skill) => (
           <div 
             key={skill.id} 
             className="p-3 rounded-lg bg-[#F6F6F3] hover:shadow-sm transition-all duration-300 flex flex-col h-full"
@@ -93,10 +122,16 @@ const SkillGaps = () => {
       </div>
       
       <div className="flex justify-center mt-5">
-        <button className="flex items-center gap-1 text-sm font-medium text-[#BF82FF] hover:text-[#9055FF] transition-colors">
-          View All Skill Gaps
-          <FiArrowRight size={14} />
-        </button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setShowAllGaps(!showAllGaps)}
+          icon={showAllGaps ? <FiChevronUp size={14} /> : <FiChevronDown size={14} />}
+          iconPosition="right"
+          className="text-[#BF82FF] hover:text-[#9055FF]"
+        >
+          {showAllGaps ? 'Show Less' : 'View All Skill Gaps'}
+        </Button>
       </div>
     </div>
   );
