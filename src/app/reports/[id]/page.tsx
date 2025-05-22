@@ -324,7 +324,7 @@ const ReportDetailPage = () => {
                 />
               </div>
               <p className="text-sm text-[#454545] mt-4">
-                This chart displays the team's average performance score over the past 8 months. The upward trend indicates continuous improvement in overall team effectiveness.
+                This chart displays the team&apos;s average performance score over the past 8 months. The upward trend indicates continuous improvement in overall team effectiveness.
               </p>
               <p className="text-xs text-[#6B6B6B] mt-2">
                 Note: This chart shows aggregated team performance over time. Individual performance data is not displayed to maintain anonymity.
@@ -832,7 +832,7 @@ const ReportDetailPage = () => {
                 </table>
               </div>
               <p className="text-sm text-[#454545] mt-4">
-                This table provides a detailed view of current team goals, their progress, status, and due dates. Most goals are on track or completed, with the "Implement CI/CD Pipeline" goal at risk and requiring attention.
+                This table provides a detailed view of current team goals, their progress, status, and due dates. Most goals are on track or completed, with the &quot;Implement CI/CD Pipeline&quot; goal at risk and requiring attention.
               </p>
             </div>
 
@@ -887,8 +887,8 @@ const ReportDetailPage = () => {
               <h3 className="text-lg font-semibold mb-4">Key Insights</h3>
               <ul className="list-disc pl-5 space-y-2">
                 <li>83% of goals are either completed or on track</li>
-                <li>"Reduce Bug Rate" goal was completed ahead of schedule</li>
-                <li>"Implement CI/CD Pipeline" is at risk and needs immediate attention</li>
+                <li>&quot;Reduce Bug Rate&quot; goal was completed ahead of schedule</li>
+                <li>&quot;Implement CI/CD Pipeline&quot; is at risk and needs immediate attention</li>
                 <li>Most goals (73%) are over 50% complete</li>
                 <li>Only one goal is currently delayed</li>
               </ul>
