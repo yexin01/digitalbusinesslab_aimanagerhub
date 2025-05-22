@@ -24,126 +24,86 @@ export default function Home() {
   ];
 
   // Sample data for team member metrics
-  const teamMemberMetrics = [
+  const teamMemberSkills = [
     {
       id: '1',
       name: 'Chris Friedkly',
       avatar: '/images/chris_avatar.png',
       role: 'Senior Developer',
-      metric: {
-        name: 'Goal Completion',
-        value: '92%',
-        trend: 'up' as const,
-        data: [65, 59, 80, 81, 56, 70, 90, 92],
-      },
+      skills: ['JavaScript', 'React', 'Node.js', 'AWS'],
+      achievements: ['Completed Advanced AI Course', 'Led Frontend Redesign Project'],
     },
     {
       id: '2',
       name: 'Maggie Johnson',
       avatar: '/images/maggie_avatar.png',
       role: 'UX Designer',
-      metric: {
-        name: 'Productivity',
-        value: '87%',
-        trend: 'up' as const,
-        data: [70, 72, 75, 78, 75, 80, 82, 87],
-      },
+      skills: ['UI Design', 'User Research', 'Figma', 'Prototyping'],
+      achievements: ['UX Certification', 'Design System Implementation'],
     },
     {
       id: '3',
       name: 'Gael Harry',
       avatar: '/images/gael_avatar.png',
       role: 'Software Engineer',
-      metric: {
-        name: 'Code Quality',
-        value: '64%',
-        trend: 'down' as const,
-        data: [85, 80, 75, 70, 68, 65, 62, 64],
-      },
+      skills: ['Python', 'Django', 'Database Design', 'Docker'],
+      achievements: ['Cloud Architecture Certification'],
     },
     {
       id: '4',
       name: 'Jenna Sullivan',
       avatar: '/images/jenna_avatar.png',
       role: 'QA Engineer',
-      metric: {
-        name: 'Test Coverage',
-        value: '80%',
-        trend: 'stable' as const,
-        data: [78, 82, 80, 79, 81, 80, 77, 80],
-      },
+      skills: ['Test Automation', 'Quality Assurance', 'Selenium', 'CI/CD'],
+      achievements: ['Test Automation Framework Implementation'],
     },
     {
       id: '5',
       name: 'Marco Rossi',
       avatar: '/images/new_avatars/ryan_avatar.png',
       role: 'Data Scientist',
-      metric: {
-        name: 'Data Quality',
-        value: '78%',
-        trend: 'up' as const,
-        data: [65, 68, 72, 71, 73, 75, 76, 78],
-      },
+      skills: ['Machine Learning', 'Data Analysis', 'Python', 'TensorFlow'],
+      achievements: ['Data Science Certification', 'Predictive Model Development'],
     },
     {
       id: '6',
       name: 'Emily Chen',
       avatar: '/images/new_avatars/sophia_avatar.png',
       role: 'Product Manager',
-      metric: {
-        name: 'Feature Delivery',
-        value: '65%',
-        trend: 'stable' as const,
-        data: [72, 70, 68, 65, 64, 63, 64, 65],
-      },
+      skills: ['Product Strategy', 'Agile', 'User Stories', 'Market Research'],
+      achievements: ['Product Management Certification'],
     },
     {
       id: '7',
       name: 'Alex Martinez',
       avatar: '/images/new_avatars/alex_avatar.png',
       role: 'Frontend Developer',
-      metric: {
-        name: 'Code Performance',
-        value: '81%',
-        trend: 'up' as const,
-        data: [70, 72, 74, 75, 77, 79, 80, 81],
-      },
+      skills: ['React', 'TypeScript', 'CSS', 'Responsive Design'],
+      achievements: ['Frontend Performance Optimization Course'],
     },
     {
       id: '8',
       name: 'Sophia Kim',
       avatar: '/images/new_avatars/laura_avatar.png',
       role: 'Backend Developer',
-      metric: {
-        name: 'API Reliability',
-        value: '75%',
-        trend: 'up' as const,
-        data: [62, 65, 68, 70, 72, 73, 74, 75],
-      },
+      skills: ['Java', 'Spring Boot', 'Microservices', 'API Design'],
+      achievements: ['Microservices Architecture Certification'],
     },
     {
       id: '9',
       name: 'Daniel Wilson',
       avatar: '/images/new_avatars/daniel_avatar.png',
       role: 'DevOps Engineer',
-      metric: {
-        name: 'Deployment Success',
-        value: '68%',
-        trend: 'down' as const,
-        data: [76, 75, 74, 72, 70, 69, 68, 68],
-      },
+      skills: ['Kubernetes', 'CI/CD', 'Infrastructure as Code', 'Cloud'],
+      achievements: ['DevOps Certification'],
     },
     {
       id: '10',
       name: 'Anna Petrov',
       avatar: '/images/new_avatars/anna_avatar.png',
       role: 'UI Designer',
-      metric: {
-        name: 'Design Satisfaction',
-        value: '89%',
-        trend: 'up' as const,
-        data: [75, 78, 80, 82, 84, 86, 88, 89],
-      },
+      skills: ['UI Design', 'Visual Design', 'Design Systems', 'Animation'],
+      achievements: ['Design Leadership Course', 'UI Animation Workshop'],
     }
   ];
 
@@ -216,18 +176,18 @@ export default function Home() {
           <div className="mb-8">
             <div className="flex items-baseline mb-4">
               <div className="w-1 h-8 bg-[#4E97FF] rounded-full mr-3"></div>
-              <h2 className="text-xl font-semibold text-[#131313]">Performance Analytics</h2>
-              <p className="text-xs text-[#6B6B6B] ml-2">Team performance metrics and distribution analysis</p>
+              <h2 className="text-xl font-semibold text-[#131313]">Team Performance Analytics</h2>
+              <p className="text-xs text-[#6B6B6B] ml-2">Aggregated team performance metrics and distribution analysis</p>
             </div>
             
             <Card elevation="md" className="transition-all duration-300 border-l-4 border-[#4E97FF]">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
                 <div className="border-r-2 border-[#F4EBFF] pr-6">
-                  <h3 className="text-lg font-semibold text-[#131313] mb-4">Performance Metrics</h3>
+                  <h3 className="text-lg font-semibold text-[#131313] mb-4">Team Performance Metrics</h3>
                   <PerformanceChart />
                 </div>
                 <div className="pl-2">
-                  <h3 className="text-lg font-semibold text-[#131313] mb-4">Performance Distribution</h3>
+                  <h3 className="text-lg font-semibold text-[#131313] mb-4">Team Performance Distribution</h3>
                   <TeamPerformanceDistribution />
                 </div>
               </div>
@@ -282,18 +242,18 @@ export default function Home() {
             </Card>
             </div>
             
-            {/* Team Member Metrics section */}
+            {/* Team Member Skills & Achievements */}
           <div className="mb-8">
             <div className="flex items-baseline mb-4">
               <div className="w-1 h-8 bg-[#4E97FF] rounded-full mr-3"></div>
-              <h2 className="text-xl font-semibold text-[#131313]">Individual Performance</h2>
-              <p className="text-xs text-[#6B6B6B] ml-2">Detailed performance metrics for each team member</p>
+              <h2 className="text-xl font-semibold text-[#131313]">Team Skills & Achievements</h2>
+              <p className="text-xs text-[#6B6B6B] ml-2">Skills and learning achievements of team members</p>
               </div>
             
             <Card elevation="md" className="transition-all duration-300 border-l-4 border-[#4E97FF] p-6">
               <TeamMemberMetrics 
-                title="Team Member Performance Metrics" 
-                members={teamMemberMetrics} 
+                title="Team Member Skills & Achievements" 
+                members={teamMemberSkills} 
               />
             </Card>
             </div>

@@ -45,6 +45,12 @@ export default function TeamOrchestratorPage() {
       keyStrengths: string[];
     }[];
   } | null>(null);
+  const [customSkill, setCustomSkill] = useState('');
+  const [requiredSkills, setRequiredSkills] = useState([
+    'JavaScript', 'React', 'Node.js', 'Python', 'UX Design',
+    'Data Analysis', 'Machine Learning', 'Product Management',
+    'UI Design', 'Project Management', 'DevOps', 'Cloud Architecture'
+  ]);
 
   // Sample data for team suggestions
   const teamSuggestions: TeamSuggestion[] = [
@@ -241,16 +247,6 @@ export default function TeamOrchestratorPage() {
     }
   ];
 
-  // Required skills
-  const requiredSkills = [
-    'Machine Learning',
-    'API Integration',
-    'Project Management',
-    'Front-End Development',
-    'Data Visualization',
-    'UI/UX Design'
-  ];
-
   const visibleTeamMembers = showAllTeamMembers ? currentTeam : currentTeam.slice(0, 6);
   
   // Toggle skill selection
@@ -322,6 +318,30 @@ export default function TeamOrchestratorPage() {
     setShowOptimalTeam(true);
   };
 
+  // Check if a skill is among the default ones
+  const isDefaultSkill = (skill: string) => {
+    // Insert here the array of original default skills
+    const defaultSkills = [
+      'JavaScript', 'React', 'Node.js', 'Python', 'UX Design',
+      'Data Analysis', 'Machine Learning', 'Product Management',
+      'UI Design', 'Project Management', 'DevOps', 'Cloud Architecture'
+    ];
+    return defaultSkills.includes(skill);
+  };
+
+  // Remove a custom skill
+  const removeCustomSkill = (skill: string) => {
+    // Remove skill from the list
+    setRequiredSkills(requiredSkills.filter(s => s !== skill));
+    
+    // Also remove from selection if present
+    if (selectedSkills.has(skill)) {
+      const newSelectedSkills = new Set(selectedSkills);
+      newSelectedSkills.delete(skill);
+      setSelectedSkills(newSelectedSkills);
+    }
+  };
+
   return (
     <div className="flex h-screen bg-[#F6F6F3]">
       <Sidebar />
@@ -354,7 +374,52 @@ export default function TeamOrchestratorPage() {
               </div>
               
               <Card elevation="md" className="transition-all duration-300 border-l-4 border-[#9055FF]">
-                <div className="text-sm text-[#454545] mb-4 p-4">Select project requirements or skills needed:</div>                
+                {/* Input for custom skills */}
+                <div className="flex items-center gap-2 mb-4 p-4 pb-0">
+                  <input
+                    type="text"
+                    value={customSkill}
+                    onChange={(e) => setCustomSkill(e.target.value)}
+                    placeholder="Add a custom skill..."
+                    className="flex-1 px-3 py-2 rounded-lg border border-[#E0E0E0] focus:outline-none focus:ring-2 focus:ring-[#BF82FF] focus:border-transparent text-sm"
+                  />
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => {
+                      if (customSkill.trim()) {
+                        setRequiredSkills([...requiredSkills, customSkill.trim()]);
+                        setSelectedSkills(new Set([...selectedSkills, customSkill.trim()]));
+                        setCustomSkill('');
+                      }
+                    }}
+                    disabled={!customSkill.trim()}
+                  >
+                    Add
+                  </Button>
+                </div>
+
+                <div className="text-sm text-[#454545] mb-4 p-4 pt-2">
+                  <div className="flex justify-between items-center">
+                    <span>Select project requirements or skills needed:</span>
+                    <div className="flex gap-2">
+                      <button 
+                        onClick={() => setSelectedSkills(new Set(requiredSkills))}
+                        className="text-xs text-[#9055FF] hover:text-[#6E38D1]"
+                      >
+                        Select all
+                      </button>
+                      <span className="text-xs text-[#6B6B6B]">|</span>
+                      <button 
+                        onClick={() => setSelectedSkills(new Set())}
+                        className="text-xs text-[#9055FF] hover:text-[#6E38D1]"
+                      >
+                        Deselect all
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
                 <div className="flex flex-wrap gap-2 mb-6 px-4">
                   {requiredSkills.map((skill, index) => (
                     <button 
@@ -368,6 +433,17 @@ export default function TeamOrchestratorPage() {
                         className="cursor-pointer hover:opacity-90 transition-opacity"
                       >
                         {skill}
+                        {!isDefaultSkill(skill) && (
+                          <span 
+                            className="ml-1 cursor-pointer" 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removeCustomSkill(skill);
+                            }}
+                          >
+                            ×
+                          </span>
+                        )}
                       </Badge>
                     </button>
                   ))}

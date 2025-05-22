@@ -10,8 +10,7 @@ interface TeamMember {
   name: string;
   role: string;
   avatar: string;
-  engagement: number;
-  status?: 'up' | 'down' | 'warning';
+  department?: string;
 }
 
 interface Recognition {
@@ -35,80 +34,70 @@ const CombinedTeamManagement = () => {
       name: 'Chris Friedkly',
       role: 'Senior Developer',
       avatar: '/images/chris_avatar.png',
-      engagement: 86,
-      status: 'up'
+      department: 'Engineering'
     },
     {
       id: '2',
       name: 'Maggie Johnson',
       role: 'UX Designer',
       avatar: '/images/maggie_avatar.png',
-      engagement: 92,
-      status: 'up'
+      department: 'Design'
     },
     {
       id: '3',
       name: 'Gael Harry',
       role: 'Software Engineer',
       avatar: '/images/gael_avatar.png',
-      engagement: 72,
-      status: 'warning'
+      department: 'Engineering'
     },
     {
       id: '4',
       name: 'Jenna Sullivan',
       role: 'QA Engineer',
       avatar: '/images/jenna_avatar.png',
-      engagement: 52,
-      status: 'down'
+      department: 'Quality Assurance'
     },
     {
       id: '5',
       name: 'Marco Rossi',
       role: 'Data Scientist',
       avatar: '/images/new_avatars/ryan_avatar.png',
-      engagement: 78,
-      status: 'up'
+      department: 'Data Science'
     },
     {
       id: '6',
       name: 'Emily Chen',
       role: 'Product Manager',
       avatar: '/images/new_avatars/sophia_avatar.png',
-      engagement: 65,
-      status: 'warning'
+      department: 'Product'
     },
     {
       id: '7',
       name: 'Alex Martinez',
       role: 'Frontend Developer',
       avatar: '/images/new_avatars/alex_avatar.png',
-      engagement: 81,
-      status: 'up'
+      department: 'Engineering'
     },
     {
       id: '8',
       name: 'Sophia Kim',
       role: 'Backend Developer',
       avatar: '/images/new_avatars/laura_avatar.png',
-      engagement: 75,
-      status: 'up'
+      department: 'Engineering'
     },
     {
       id: '9',
       name: 'Daniel Wilson',
       role: 'DevOps Engineer',
       avatar: '/images/new_avatars/daniel_avatar.png',
-      engagement: 68,
-      status: 'warning'
+      department: 'Operations'
     },
     {
       id: '10',
       name: 'Anna Petrov',
       role: 'UI Designer',
       avatar: '/images/new_avatars/anna_avatar.png',
-      engagement: 89,
-      status: 'up'
+      department: 'Design'
     }
   ];
 
@@ -163,12 +152,8 @@ const CombinedTeamManagement = () => {
     }
   ];
 
-  const filteredMembers = teamMembers.filter(member => 
-    statusFilter === 'all' || member.status === statusFilter
-  );
-
   const membersToShowWhenCollapsed = 5;
-  const visibleMembers = showAllMembers ? filteredMembers : filteredMembers.slice(0, membersToShowWhenCollapsed);
+  const visibleMembers = showAllMembers ? teamMembers : teamMembers.slice(0, membersToShowWhenCollapsed);
 
   const toggleShowAllMembers = () => {
     setShowAllMembers(!showAllMembers);
@@ -268,52 +253,12 @@ const CombinedTeamManagement = () => {
 
           <div className="flex items-center gap-2 mb-3">
             <div className="text-xs text-[#6B6B6B] flex items-center gap-1">
-              <FiFilter size={12} />
-              <span>Status:</span>
+              <span>Team Directory</span>
             </div>
-            <div className="flex items-center gap-1 flex-wrap">
-              <button 
-                onClick={() => setStatusFilter('all')}
-                className={`text-xs px-2 py-1 rounded-full transition-colors ${getFilterBadgeStyle('all')}`}
-              >
-                All
-              </button>
-              <button 
-                onClick={() => setStatusFilter('up')}
-                className={`text-xs px-2 py-1 rounded-full transition-colors flex items-center gap-1 ${getFilterBadgeStyle('up')}`}
-              >
-                <FiArrowUp size={10} />
-                <span>High</span>
-              </button>
-              <button 
-                onClick={() => setStatusFilter('warning')}
-                className={`text-xs px-2 py-1 rounded-full transition-colors flex items-center gap-1 ${getFilterBadgeStyle('warning')}`}
-              >
-                <FiAlertTriangle size={10} />
-                <span>Medium</span>
-              </button>
-              <button 
-                onClick={() => setStatusFilter('down')}
-                className={`text-xs px-2 py-1 rounded-full transition-colors flex items-center gap-1 ${getFilterBadgeStyle('down')}`}
-              >
-                <FiArrowDown size={10} />
-                <span>Low</span>
-              </button>
-            </div>
-            {statusFilter !== 'all' && (
-              <button 
-                onClick={() => setStatusFilter('all')}
-                className="text-xs text-[#6B6B6B] hover:text-[#131313] ml-auto"
-              >
-                <FiX size={14} />
-              </button>
-            )}
           </div>
 
           <div className="space-y-2 flex-1 overflow-hidden">
             {visibleMembers.map((member) => {
-              const statusInfo = getStatusInfo(member.status);
-              
               return (
                 <div 
                   key={member.id}
@@ -341,22 +286,18 @@ const CombinedTeamManagement = () => {
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Badge 
-                      variant={statusInfo.badgeVariant}
-                      className="font-medium"
-                    >
-                      <span className="flex items-center gap-1">
-                        {statusInfo.icon}
-                        {member.engagement}%
+                    {member.department && (
+                      <span className="text-xs bg-[#F0F0F0] text-[#6B6B6B] px-2 py-1 rounded-full">
+                        {member.department}
                       </span>
-                    </Badge>
+                    )}
                   </div>
                 </div>
               );
             })}
           </div>
 
-          {filteredMembers.length > membersToShowWhenCollapsed && (
+          {teamMembers.length > membersToShowWhenCollapsed && (
             <div className="flex justify-center mt-auto pt-4">
               <div className="flex justify-center w-full">
                 <button 

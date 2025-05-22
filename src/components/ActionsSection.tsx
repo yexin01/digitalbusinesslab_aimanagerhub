@@ -15,8 +15,8 @@ const ActionsSection = () => {
     {
       id: '1',
       type: 'HIGH_PRIORITY',
-      title: 'Schedule 1:1 with Daniel Wilson',
-      description: 'Engagement score dropped 15% in the last 30 days. AI suggests discussing workload and career growth.'
+      title: 'Schedule Team Meeting',
+      description: 'General engagement score dropped 15% in the last 30 days. AI suggests discussing workload and career growth.'
     },
     {
       id: '2',

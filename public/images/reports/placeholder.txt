@@ -1,0 +1,12 @@
+Per completare la pagina dei reports, è necessario aggiungere le seguenti immagini in questa directory:
+
+1. team_performance.jpg - Un'immagine che mostri un grafico di performance del team
+2. skill_development.jpg - Un'immagine che mostri l'analisi delle competenze
+3. team_engagement.jpg - Un'immagine che mostri metriche di coinvolgimento del team
+4. quarterly_goals.jpg - Un'immagine che mostri gli obiettivi trimestrali
+5. productivity.jpg - Un'immagine che mostri metriche di produttività
+6. training.jpg - Un'immagine che mostri i progressi formativi
+
+Le immagini dovrebbero avere dimensioni di circa 600x400px per una visualizzazione ottimale.
+
+Nota: Se le immagini non sono disponibili, è possibile modificare temporaneamente il codice della pagina per utilizzare placeholder o immagini di esempio dal progetto. 

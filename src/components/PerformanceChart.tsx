@@ -29,29 +29,29 @@ ChartJS.register(
 const PerformanceChart = () => {
   const [timeframe, setTimeframe] = useState<'month' | 'quarter' | 'year'>('month');
 
-  // Dati per i diversi periodi
+  // Data for the different periods
   const monthData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Agu'],
     goalsCompleted: [12, 15, 18, 14, 22, 25, 20, 23],
     teamAverage: [10, 12, 14, 13, 16, 18, 17, 19],
-    period: 'Jan 2023 - Aug 2023'
+    period: 'January 2024 - August 2024'
   };
   
   const quarterData = {
-    labels: ['Q1 2022', 'Q2 2022', 'Q3 2022', 'Q4 2022', 'Q1 2023', 'Q2 2023'],
-    goalsCompleted: [35, 42, 38, 45, 55, 61],
-    teamAverage: [32, 36, 35, 40, 48, 52],
-    period: 'Q1 2022 - Q2 2023'
+    labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024'],
+    goalsCompleted: [35, 42, 38, 45],
+    teamAverage: [32, 36, 35, 40],
+    period: 'Q1 2024 - Q4 2024'
   };
   
   const yearData = {
-    labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
+    labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
     goalsCompleted: [120, 145, 132, 158, 175, 190],
     teamAverage: [110, 125, 122, 140, 155, 170],
-    period: '2018 - 2023'
+    period: '2019 - 2024'
   };
   
-  // Seleziona i dati in base al periodo
+  // Select the data based on the period
   const currentData = (() => {
     switch(timeframe) {
       case 'quarter':
@@ -93,7 +93,7 @@ const PerformanceChart = () => {
     ],
   };
 
-  // Adatta le opzioni in base al periodo
+  // Adjust the options based on the period
   const getYAxisMax = () => {
     switch(timeframe) {
       case 'quarter':

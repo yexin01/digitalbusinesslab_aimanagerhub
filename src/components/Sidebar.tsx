@@ -111,7 +111,6 @@ const Sidebar = () => {
             label="Projects" 
             href="/projects" 
           />
-          <SidebarItem icon={<FiDownload size={18} />} label="Export" />
         </div>
       </div>
 
@@ -120,7 +119,7 @@ const Sidebar = () => {
           Management
         </div>
         <div className="flex flex-col gap-1">
-          <SidebarItem icon={<FiFileText size={18} />} label="Reports" />
+          <SidebarItem icon={<FiFileText size={18} />} label="Reports" href="/reports" />
           <SidebarItem icon={<FiSettings size={18} />} label="Settings" />
         </div>
       </div>
