@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import ImageWithFallback from '@/components/ui/ImageWithFallback';
 import Sidebar from '@/components/Sidebar';
 import PageHeader from '@/components/PageHeader';
 import { FiCalendar, FiUsers, FiBarChart2, FiGlobe, FiFilter, FiChevronDown, FiChevronUp, FiClock } from 'react-icons/fi';
@@ -331,13 +332,16 @@ const Projects = () => {
                   expandedProject === project.id ? 'transform scale-[1.02]' : ''
                 }`}
               >
-                <div className="relative h-48 w-full">
-                  <Image 
+                <div className="relative h-48 w-full bg-gradient-to-br from-[#F6F6F3] to-[#E5E5E5]">
+                  <ImageWithFallback 
                     src={project.image} 
                     alt={project.title}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={false}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkrHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                   />
                   <div className="absolute top-3 right-3">
                     <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
