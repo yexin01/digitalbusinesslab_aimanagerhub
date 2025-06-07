@@ -39,10 +39,10 @@ ChartJS.register(
 const reportDefinitions = {
   'team-performance': {
     title: 'Team Performance',
-    description: 'Aggregated team performance metrics',
+    description: 'Comprehensive analysis of team productivity, code quality, and collaboration metrics',
     icon: <FiBarChart2 size={20} />,
     color: '#9055FF',
-    type: 'performance'
+    type: 'comprehensive'
   },
   'skills-development': {
     title: 'Skills Development',
@@ -78,6 +78,86 @@ const reportDefinitions = {
     icon: <FiUsers size={20} />,
     color: '#6E38D1',
     type: 'training'
+  }
+};
+
+// Comprehensive Team Performance data (combines productivity, code quality, and collaboration)
+const comprehensiveData = {
+  overallMetrics: {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+    datasets: [
+      {
+        label: 'Productivity Score',
+        data: [82, 84, 86, 88, 91, 89, 93, 95],
+        borderColor: '#9055FF',
+        backgroundColor: 'rgba(144, 85, 255, 0.1)',
+        fill: true,
+        tension: 0.4
+      },
+      {
+        label: 'Code Quality',
+        data: [75, 78, 80, 82, 85, 87, 88, 90],
+        borderColor: '#4E97FF',
+        backgroundColor: 'rgba(78, 151, 255, 0.1)',
+        fill: true,
+        tension: 0.4
+      },
+      {
+        label: 'Collaboration',
+        data: [88, 90, 87, 91, 94, 92, 96, 98],
+        borderColor: '#25CD25',
+        backgroundColor: 'rgba(37, 205, 37, 0.1)',
+        fill: true,
+        tension: 0.4
+      }
+    ]
+  },
+  categoryComparison: {
+    labels: ['Productivity', 'Code Quality', 'Collaboration', 'Innovation', 'Problem Solving', 'Communication'],
+    datasets: [
+      {
+        label: 'Current Performance',
+        data: [95, 90, 98, 82, 87, 94],
+        backgroundColor: 'rgba(144, 85, 255, 0.8)',
+        borderColor: '#9055FF',
+        borderWidth: 2,
+        borderRadius: 4
+      },
+      {
+        label: 'Team Target',
+        data: [85, 85, 85, 80, 85, 85],
+        backgroundColor: 'rgba(144, 85, 255, 0.3)',
+        borderColor: '#9055FF',
+        borderWidth: 1,
+        borderRadius: 4
+      }
+    ]
+  },
+  detailedBreakdown: {
+    productivity: {
+      labels: ['Code Commits', 'Tasks Completed', 'Bug Fixes', 'Feature Delivery', 'Sprint Goals'],
+      datasets: [{
+        data: [92, 88, 94, 85, 91],
+        backgroundColor: ['#9055FF', '#BF82FF', '#D1A3FF', '#E5C7FF', '#F4EBFF'],
+        hoverOffset: 4
+      }]
+    },
+    codeQuality: {
+      labels: ['Code Reviews', 'Test Coverage', 'Documentation', 'Clean Code', 'Standards Compliance'],
+      datasets: [{
+        data: [88, 85, 92, 87, 95],
+        backgroundColor: ['#4E97FF', '#7BB3FF', '#A8CBFF', '#D1E3FF', '#E8F2FF'],
+        hoverOffset: 4
+      }]
+    },
+    collaboration: {
+      labels: ['Team Meetings', 'Knowledge Sharing', 'Peer Support', 'Cross-functional Work', 'Mentoring'],
+      datasets: [{
+        data: [96, 94, 100, 92, 88],
+        backgroundColor: ['#25CD25', '#52D452', '#7FDB7F', '#ACE2AC', '#D9F0D9'],
+        hoverOffset: 4
+      }]
+    }
   }
 };
 
@@ -316,6 +396,166 @@ const ReportDetailPage = () => {
   // Render different content based on report type
   const renderReportContent = () => {
     switch (reportDef.type) {
+      case 'comprehensive':
+        return (
+          <div className="space-y-6 lg:space-y-8">
+            {/* Overall Performance Metrics */}
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Comprehensive Team Performance Overview</h3>
+              <div className="h-64 lg:h-80">
+                <Line 
+                  data={comprehensiveData.overallMetrics} 
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                      y: {
+                        min: 70,
+                        max: 100,
+                        ticks: { callback: (value) => `${value}%` }
+                      }
+                    },
+                    plugins: {
+                      legend: {
+                        position: 'top' as const,
+                      }
+                    }
+                  }} 
+                />
+              </div>
+              <p className="text-sm text-[#454545] mt-6">
+                This comprehensive overview tracks three key performance dimensions: Productivity (95%), Code Quality (90%), and Collaboration (98%). 
+                All metrics show consistent upward trends, with Collaboration achieving the highest scores.
+              </p>
+            </Card>
+
+            {/* Category Comparison */}
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Performance vs Targets</h3>
+              <div className="h-64 lg:h-80">
+                <Bar 
+                  data={comprehensiveData.categoryComparison} 
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                      y: {
+                        min: 0,
+                        max: 100,
+                        ticks: { callback: (value) => `${value}%` }
+                      }
+                    }
+                  }} 
+                />
+              </div>
+              <p className="text-sm text-[#454545] mt-6">
+                Current team performance exceeds targets in all categories. Collaboration (98%) and Productivity (95%) show exceptional performance, 
+                while Innovation (82%) presents opportunities for growth.
+              </p>
+            </Card>
+
+            {/* Detailed Breakdowns */}
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8">
+              <Card elevation="lg" padding="lg">
+                <h3 className="text-lg font-bold mb-6 text-[#9055FF]">Productivity Analysis</h3>
+                <div className="h-48">
+                  <Doughnut 
+                    data={comprehensiveData.detailedBreakdown.productivity}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: 'bottom' as const,
+                          labels: { 
+                            font: { size: 10 }
+                          }
+                        }
+                      }
+                    }}
+                  />
+                </div>
+                <p className="text-xs text-[#454545] mt-4">
+                  Bug Fixes (94%) and Code Commits (92%) lead productivity metrics.
+                </p>
+              </Card>
+
+              <Card elevation="lg" padding="lg">
+                <h3 className="text-lg font-bold mb-6 text-[#4E97FF]">Code Quality Metrics</h3>
+                <div className="h-48">
+                  <Doughnut 
+                    data={comprehensiveData.detailedBreakdown.codeQuality}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: 'bottom' as const,
+                          labels: { 
+                            font: { size: 10 }
+                          }
+                        }
+                      }
+                    }}
+                  />
+                </div>
+                <p className="text-xs text-[#454545] mt-4">
+                  Standards Compliance (95%) and Documentation (92%) show strong quality focus.
+                </p>
+              </Card>
+
+              <Card elevation="lg" padding="lg">
+                <h3 className="text-lg font-bold mb-6 text-[#25CD25]">Collaboration Excellence</h3>
+                <div className="h-48">
+                  <Doughnut 
+                    data={comprehensiveData.detailedBreakdown.collaboration}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: {
+                          position: 'bottom' as const,
+                          labels: { 
+                            font: { size: 10 }
+                          }
+                        }
+                      }
+                    }}
+                  />
+                </div>
+                <p className="text-xs text-[#454545] mt-4">
+                  Peer Support (100%) and Team Meetings (96%) demonstrate excellent collaboration.
+                </p>
+              </Card>
+            </div>
+
+            {/* Key Insights */}
+            <Card elevation="lg" padding="lg">
+              <h3 className="text-lg lg:text-xl font-bold mb-6">Comprehensive Analysis & Recommendations</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-[#25CD25] mb-3">Strengths</h4>
+                  <ul className="list-disc pl-5 space-y-2 text-sm">
+                    <li>Exceptional collaboration with 100% peer support score</li>
+                    <li>High code quality standards with 95% compliance</li>
+                    <li>Strong productivity with 94% bug fix efficiency</li>
+                    <li>Excellent documentation practices (92%)</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[#FFA500] mb-3">Growth Opportunities</h4>
+                  <ul className="list-disc pl-5 space-y-2 text-sm">
+                    <li>Innovation metrics (82%) below other categories</li>
+                    <li>Test coverage (85%) could be improved</li>
+                    <li>Mentoring activities (88%) have room for growth</li>
+                    <li>Feature delivery timing (85%) optimization needed</li>
+                  </ul>
+                </div>
+              </div>
+            </Card>
+          </div>
+        );
+
       case 'performance':
         return (
           <div className="space-y-6 lg:space-y-8">

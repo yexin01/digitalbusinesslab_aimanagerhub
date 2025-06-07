@@ -76,7 +76,7 @@ interface ReportCardProps {
   lastUpdated: string;
   color: string;
   id: string;
-  type: 'performance' | 'skills' | 'engagement' | 'goals' | 'training';
+  type: 'performance' | 'skills' | 'engagement' | 'goals' | 'training' | 'comprehensive';
   stats?: {
     value: string;
     label: string;
@@ -181,7 +181,7 @@ const ReportsPage = () => {
       icon: <FiBarChart2 size={20} />,
       lastUpdated: 'Today, 10:30 AM',
       color: '#9055FF',
-      type: 'performance' as const,
+      type: 'comprehensive' as const,
       stats: { value: '87%', label: 'Average Performance', trend: 'up' as const }
     },
     {
