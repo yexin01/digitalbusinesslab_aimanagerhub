@@ -1,6 +1,7 @@
 # AI Manager Hub
 
 This is a [Next.js](https://nextjs.org/) project designed to provide an AI-powered dashboard for managers to overview employee information and performance.
+Developed by Xin Ye.
 
 ## Live Demo
 
